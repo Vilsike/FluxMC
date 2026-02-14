@@ -163,6 +163,61 @@ h1{
   .buttons{ grid-template-columns: 1fr; }
 }
 
+@media (max-width: 720px){
+  body{ padding-top: 112px; }
+}
+
+@media (max-width: 520px){
+  body{ padding-top: 132px; }
+}
+
+@media (max-width: 520px){
+  .topbar-inner{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .topbar-brand{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .topbar-nav{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .topbar-pill.is-ip{
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 620px){
+  .wrap{ max-width: 560px; }
+  .card{ border-radius: 18px; }
+  .page-header{ padding: 26px 18px 14px 18px; }
+  .grid{ padding: 14px 14px 18px 14px; }
+  .section{ padding: 14px; border-radius: 16px; }
+}
+
+@media (max-width: 620px){
+  h1{
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .tagline{
+    font-size: 14px;
+    max-width: 44ch;
+  }
+}
+
+@media (max-width: 620px){
+  .topbar-pill{
+    padding: 10px 12px;
+  }
+}
 
 /* Fullscreen ember layer behind content */
 #embers {
@@ -409,4 +464,28 @@ h1{
     padding: 7px 9px;
     font-size: 12.5px;
   }
+}
+
+.toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(10, 12, 18, 0.72);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 14px;
+  padding: 10px 12px;
+  color: rgba(255,255,255,0.92);
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 99999;
+}
+
+.toast.show{
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
 }
