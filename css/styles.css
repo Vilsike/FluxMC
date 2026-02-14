@@ -492,3 +492,64 @@ h1{
   opacity: 1;
   transform: translateX(-50%) translateY(-2px);
 }
+
+/* Mobile: compact topbar so it does not dominate the page */
+@media (max-width: 520px){
+  /* Reduce the page offset because the bar becomes smaller */
+  body{ padding-top: 96px; }
+
+  .topbar{
+    top: 10px;
+    width: calc(100% - 20px);
+    border-radius: 16px;
+  }
+
+  .topbar-inner{
+    padding: 8px 10px;
+    gap: 10px;
+  }
+
+  /* Keep brand small */
+  .topbar-brand img{
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+  }
+
+  .topbar-name{
+    display: none;
+  }
+
+  /* Keep nav in one tight row if possible */
+  .topbar-nav{
+    gap: 8px;
+    justify-content: flex-end;
+  }
+
+  .topbar-pill{
+    padding: 8px 10px;
+    font-size: 12.5px;
+  }
+
+  /* Make the IP button not ridiculously wide */
+  .topbar-pill.is-ip{
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .topbar-pill.is-ip code{
+    font-size: 12px;
+  }
+
+  .ip-hint{
+    display: none;
+  }
+}
+
+@media (max-width: 520px){
+  /* Hide "Coming Soon" pills on mobile */
+  .topbar-pill.is-soon{
+    display: none;
+  }
+}
