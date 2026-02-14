@@ -99,3 +99,134 @@
   0% { box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.55); }
   100% { box-shadow: 0 0 0 16px rgba(255, 196, 80, 0); }
 }
+
+/* Floating top header */
+.topbar{
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1100px, calc(100% - 24px));
+  z-index: 9999;
+
+  background: rgba(10, 12, 18, 0.62);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+}
+
+.topbar-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px;
+}
+
+.topbar-brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.92);
+  min-width: 0;
+}
+
+.topbar-brand img{
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.topbar-name{
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.topbar-nav{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.topbar-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+
+  color: rgba(255,255,255,0.86);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  user-select: none;
+}
+
+.topbar-pill.is-soon{
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.topbar-pill.is-link:hover{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.topbar-pill.is-ip{
+  cursor: pointer;
+}
+
+.topbar-pill.is-ip:hover{
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.22);
+}
+
+.topbar-pill code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12.5px;
+  background: transparent;
+  padding: 0;
+  color: rgba(255,255,255,0.92);
+}
+
+.ip-label{
+  color: rgba(255,255,255,0.70);
+}
+
+.ip-hint{
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+@media (max-width: 720px){
+  .topbar-name{ display: none; }
+  .ip-hint{ display: none; }
+}
+
+@media (max-width: 520px){
+  .topbar{
+    top: 10px;
+    border-radius: 16px;
+  }
+  .topbar-nav{
+    gap: 8px;
+  }
+  .topbar-pill{
+    padding: 7px 9px;
+    font-size: 12.5px;
+  }
+}
