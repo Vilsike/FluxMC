@@ -32,7 +32,9 @@
                   var(--bg);
       display: grid;
       place-items: center;
-      padding: 28px 16px;
+
+      /* added: room for floating header */
+      padding: 96px 16px 28px 16px;
     }
 
     .wrap{
@@ -54,24 +56,6 @@
       gap: 18px;
       justify-items: center;
       text-align: center;
-    }
-
-    .logo{
-      width: 112px;
-      height: 112px;
-      border-radius: 24px;
-      background: var(--card2);
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-
-    .logo img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
     }
 
     h1{
@@ -187,27 +171,6 @@
       pointer-events: none;
     }
 
-    footer{
-      padding: 14px 18px 20px 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    footer a{
-      color: var(--muted);
-      text-decoration: none;
-      border-bottom: 1px dotted rgba(255,255,255,0.25);
-    }
-
-    footer a:hover{
-      color: var(--text);
-      border-bottom-color: rgba(255,255,255,0.45);
-    }
-
     @media (max-width: 620px){
       h1{ font-size: 36px; }
       .buttons{ grid-template-columns: 1fr; }
@@ -216,13 +179,40 @@
 </head>
 
 <body>
+  <!-- FLOATING HEADER -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="topbar-brand" href="/" aria-label="FluxMC home">
+        <img src="assets/logo.png" alt="FluxMC" />
+        <span class="topbar-name">FluxMC</span>
+      </a>
+
+      <nav class="topbar-nav" aria-label="FluxMC links">
+        <span class="topbar-pill is-soon" title="Coming soon">Vote</span>
+        <span class="topbar-pill is-soon" title="Coming soon">Store</span>
+
+        <a class="topbar-pill is-link" href="https://discord.gg/fluxmc" target="_blank" rel="noreferrer">
+          Discord
+        </a>
+
+        <button class="topbar-pill is-ip" type="button" onclick="copyIPTopbar()">
+          <span class="ip-label">IP:</span>
+          <code>play.fluxmc.gg</code>
+          <span class="ip-hint">Click to copy</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
   <canvas id="embers"></canvas>
-<div class="bg-vignette"></div>
+  <div class="bg-vignette"></div>
+
   <main class="wrap">
-   <div class="hero-logo" aria-label="FluxMC logo">
-    <img class="hero-logo-img" src="assets/logo.png" alt="FluxMC Logo" />
-    <span class="logo-ping" aria-hidden="true"></span>
-   </div>
+    <div class="hero-logo" aria-label="FluxMC logo">
+      <img class="hero-logo-img" src="assets/logo.png" alt="FluxMC Logo" />
+      <span class="logo-ping" aria-hidden="true"></span>
+    </div>
+
     <div class="card">
       <header>
         <h1>FluxMC</h1>
@@ -269,7 +259,24 @@
       document.body.removeChild(ta);
       alert("Copied: " + ip);
     }
+
+    function copyIPTopbar(){
+      const ip = "play.fluxmc.gg";
+      if (navigator && navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(ip).then(() => alert("Copied: " + ip));
+        return;
+      }
+      const ta = document.createElement("textarea");
+      ta.value = ip;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      alert("Copied: " + ip);
+    }
   </script>
+
+  <!-- IMPORTANT: use your real folder name -->
   <script src="js/embers.js"></script>
 </body>
 </html>
