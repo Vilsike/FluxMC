@@ -30,11 +30,13 @@ body{
 }
 
 .wrap{
-  width: 100%;
+  width: min(980px, 100%);
   max-width: 980px;
+  margin: 0 auto;
 }
 
 .card{
+  width: min(920px, 100%);
   background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.03));
   border: 1px solid var(--border);
   border-radius: 22px;
@@ -212,39 +214,31 @@ h1{
   font-size: 13px;
 }
 
-
 .hero-logo{
-  /* Responsive size: never huge, never tiny */
-  width: clamp(88px, 12vw, 130px);
-  height: clamp(88px, 12vw, 130px);
+  width: clamp(110px, 14vw, 160px);
+  height: auto;
 
   margin: 0 auto 18px auto;
-  border-radius: 28px;
   position: relative;
+
   display: grid;
   place-items: center;
 
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 
   animation: floaty 4.2s ease-in-out infinite;
 }
 
 .hero-logo-img{
-  width: 92%;
-  height: 92%;
-
-  /* This is the key: do not let the image overflow */
+  width: 100%;
+  height: auto;
   object-fit: contain;
-
-  /* Prevent weird stretching or pixel jaggies */
-  image-rendering: auto;
-
   display: block;
-  border-radius: 28px;
-}
 
+  filter: drop-shadow(0 18px 60px rgba(0,0,0,0.55));
+}
 
 @keyframes floaty{
   0%, 100% { transform: translateY(0); }
@@ -254,11 +248,11 @@ h1{
 .hero-logo::after{
   content: "";
   position: absolute;
-  inset: -12px;
-  border-radius: 36px;
-  background: radial-gradient(circle at 50% 35%, rgba(255,170,60,0.20), transparent 60%);
-  filter: blur(12px);
-  opacity: 0.75;
+  inset: -28px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 50% 45%, rgba(255,170,60,0.22), transparent 60%);
+  filter: blur(14px);
+  opacity: 0.7;
   z-index: -1;
   animation: glow 4.2s ease-in-out infinite;
 }
@@ -271,7 +265,7 @@ h1{
 /* Optional little status sparkle dot */
 .logo-ping{
   position: absolute;
-  right: 10px;
+  right: -2px;
   bottom: 10px;
   width: 10px;
   height: 10px;
