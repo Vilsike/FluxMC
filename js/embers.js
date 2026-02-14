@@ -1,4 +1,3 @@
-<script>
   const canvas = document.getElementById("embers")
   const ctx = canvas.getContext("2d")
 
@@ -88,4 +87,3 @@
   }
 
   if (!prefersReduced) requestAnimationFrame(tick)
-</script>
