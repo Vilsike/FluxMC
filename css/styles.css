@@ -191,10 +191,7 @@ h1{
   z-index: 2;
 }
 
-/* Give the fixed header some breathing room so it does not overlap content */
-body{
-  padding-top: 86px;
-}
+.topbar{ pointer-events: auto; }
 
 /* Since we renamed header tags in HTML, keep styling consistent */
 .page-header{
