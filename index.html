@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="FluxMC. The world evolves with you. IP: play.fluxmc.gg. Version: 1.21.11" />
+  <title>FluxMC</title>
+
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --border: rgba(255,255,255,0.12);
+      --accent: #f4c542;
+      --accent2: #ffd86a;
+      --shadow: 0 12px 40px rgba(0,0,0,0.55);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(900px 600px at 20% 10%, rgba(244,197,66,0.18), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(255,216,106,0.10), transparent 60%),
+                  radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.05), transparent 60%),
+                  var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+    }
+
+    .wrap{
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.03));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    header{
+      padding: 34px 28px 16px 28px;
+      display: grid;
+      gap: 18px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .logo{
+      width: 112px;
+      height: 112px;
+      border-radius: 24px;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .logo img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1{
+      margin: 0;
+      letter-spacing: 0.4px;
+      font-size: 44px;
+      line-height: 1.05;
+    }
+
+    .tagline{
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.4;
+      max-width: 52ch;
+    }
+
+    .pillrow{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 6px;
+    }
+
+    .pill{
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.25);
+      padding: 10px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pill strong{
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .grid{
+      display: grid;
+      gap: 14px;
+      padding: 18px 18px 22px 18px;
+    }
+
+    .section{
+      background: rgba(0,0,0,0.22);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .section h2{
+      margin: 0 0 10px 0;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      color: var(--muted);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .section p{
+      margin: 0;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .buttons{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .btn{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
+      user-select: none;
+    }
+
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(244,197,66,0.22), rgba(244,197,66,0.10));
+      border-color: rgba(244,197,66,0.35);
+    }
+
+    .btn.primary:hover{
+      background: linear-gradient(180deg, rgba(244,197,66,0.28), rgba(244,197,66,0.12));
+      border-color: rgba(244,197,66,0.50);
+    }
+
+    .btn.disabled{
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    footer{
+      padding: 14px 18px 20px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a{
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(255,255,255,0.25);
+    }
+
+    footer a:hover{
+      color: var(--text);
+      border-bottom-color: rgba(255,255,255,0.45);
+    }
+
+    @media (max-width: 620px){
+      h1{ font-size: 36px; }
+      .buttons{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <div class="card">
+      <header>
+        <div class="logo" aria-label="FluxMC logo">
+          <!-- Upload your logo into the repo and update this path -->
+          <img src="assets/logo.png" alt="FluxMC Logo" />
+        </div>
+
+        <h1>FluxMC</h1>
+        <p class="tagline">The world evolves with you. A survival server focused on long-term progression.</p>
+
+        <div class="pillrow">
+          <div class="pill">IP: <strong><code>play.fluxmc.gg</code></strong></div>
+          <div class="pill">Version: <strong>1.21.11</strong></div>
+          <div class="pill">Java + Bedrock</div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="section">
+          <h2>What FluxMC Is</h2>
+          <p>
+            Survival with milestones you can work toward over time.
+            No pay-to-win. Cosmetics and quality-of-life only.
+          </p>
+
+          <div class="buttons">
+            <a class="btn primary" href="https://discord.gg/fluxmc" target="_blank" rel="noreferrer">Join Discord</a>
+            <a class="btn" href="https://vote.fluxmc.gg" target="_blank" rel="noreferrer">Vote</a>
+            <a class="btn disabled" href="#" aria-disabled="true">Store (Coming Soon)</a>
+            <a class="btn" href="#" onclick="copyIP(); return false;">Copy IP</a>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <span>FluxMC</span>
+        <span>|</span>
+        <a href="https://discord.gg/fluxmc" target="_blank" rel="noreferrer">Discord</a>
+        <span>|</span>
+        <a href="https://vote.fluxmc.gg" target="_blank" rel="noreferrer">Vote</a>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    function copyIP(){
+      const ip = "play.fluxmc.gg";
+      if (navigator && navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(ip).then(() => alert("Copied: " + ip));
+        return;
+      }
+      const ta = document.createElement("textarea");
+      ta.value = ip;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      alert("Copied: " + ip);
+    }
+  </script>
+</body>
+</html>
