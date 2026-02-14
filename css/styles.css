@@ -31,6 +31,35 @@ body{
   padding: 86px 16px 28px 16px;
 }
 
+/* Fullscreen ember layer behind content */
+#embers {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Warm glow + vignette above embers, still behind content */
+.bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(1000px 600px at 50% 25%, rgba(255, 170, 60, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 20% 80%, rgba(255, 120, 40, 0.08), transparent 60%),
+    radial-gradient(900px 500px at 80% 85%, rgba(255, 120, 40, 0.06), transparent 60%),
+    radial-gradient(1200px 900px at 50% 50%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.85));
+}
+
+/* Ensure your site content sits above both */
+.wrap, .card {
+  position: relative;
+  z-index: 2;
+}
+
 .wrap{
   width: min(980px, 100%);
   max-width: 980px;
@@ -44,6 +73,15 @@ body{
   border-radius: 22px;
   box-shadow: 0 12px 40px rgba(0,0,0,0.55);
   overflow: hidden;
+}
+
+/* Since we renamed header tags in HTML, keep styling consistent */
+.page-header{
+  padding: 34px 28px 16px 28px;
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  text-align: center;
 }
 
 h1{
@@ -115,158 +153,7 @@ h1{
   line-height: 1.55;
 }
 
-.buttons{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.06);
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
-  user-select: none;
-}
-
-.btn:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(255,255,255,0.18);
-}
-
-.btn.primary{
-  background: linear-gradient(180deg, rgba(244,197,66,0.22), rgba(244,197,66,0.10));
-  border-color: rgba(244,197,66,0.35);
-}
-
-.btn.primary:hover{
-  background: linear-gradient(180deg, rgba(244,197,66,0.28), rgba(244,197,66,0.12));
-  border-color: rgba(244,197,66,0.50);
-}
-
-.btn.disabled{
-  opacity: 0.55;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-@media (max-width: 620px){
-  h1{ font-size: 36px; }
-  .buttons{ grid-template-columns: 1fr; }
-}
-
-@media (max-width: 520px){
-  body{ padding-top: 132px; }
-}
-
-@media (max-width: 520px){
-  .topbar-inner{
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .topbar-brand{
-    width: 100%;
-    justify-content: center;
-  }
-
-  .topbar-nav{
-    width: 100%;
-    justify-content: center;
-  }
-
-  .topbar-pill.is-ip{
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (max-width: 620px){
-  .wrap{ max-width: 560px; }
-  .card{ border-radius: 18px; }
-  .page-header{ padding: 26px 18px 14px 18px; }
-  .grid{ padding: 14px 14px 18px 14px; }
-  .section{ padding: 14px; border-radius: 16px; }
-}
-
-@media (max-width: 620px){
-  h1{
-    font-size: 34px;
-    line-height: 1.1;
-  }
-
-  .tagline{
-    font-size: 14px;
-    max-width: 44ch;
-  }
-}
-
-@media (max-width: 620px){
-  .topbar-pill{
-    padding: 10px 12px;
-  }
-}
-
-/* Fullscreen ember layer behind content */
-#embers {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Warm glow + vignette above embers, still behind content */
-.bg-vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    radial-gradient(1000px 600px at 50% 25%, rgba(255, 170, 60, 0.10), transparent 60%),
-    radial-gradient(900px 500px at 20% 80%, rgba(255, 120, 40, 0.08), transparent 60%),
-    radial-gradient(900px 500px at 80% 85%, rgba(255, 120, 40, 0.06), transparent 60%),
-    radial-gradient(1200px 900px at 50% 50%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.85));
-}
-
-/* Ensure your site content sits above both */
-.wrap, .card {
-  position: relative;
-  z-index: 2;
-}
-
-.topbar{ pointer-events: auto; }
-
-/* Since we renamed header tags in HTML, keep styling consistent */
-.page-header{
-  padding: 34px 28px 16px 28px;
-  display: grid;
-  gap: 18px;
-  justify-items: center;
-  text-align: center;
-}
-
-.footer{
-  padding: 14px 18px 20px 18px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  color: rgba(255,255,255,0.70);
-  font-size: 13px;
-}
-
+/* Hero logo (big logo under header) */
 .hero-logo{
   width: clamp(110px, 14vw, 160px);
   height: auto;
@@ -282,6 +169,9 @@ h1{
   box-shadow: none;
 
   animation: floaty 4.2s ease-in-out infinite;
+
+  /* helps keep ping dot inside for wide logos */
+  padding: 10px;
 }
 
 .hero-logo-img{
@@ -327,12 +217,6 @@ h1{
   animation: ping 1.6s ease-out infinite;
 }
 
-/* On super-wide logos, keep dot inside */
-.hero-logo{
-  padding: 10px;
-}
-
-
 @keyframes ping{
   0% { box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.55); }
   100% { box-shadow: 0 0 0 16px rgba(255, 196, 80, 0); }
@@ -353,6 +237,8 @@ h1{
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+
+  pointer-events: auto;
 }
 
 .topbar-inner{
@@ -370,6 +256,7 @@ h1{
   text-decoration: none;
   color: rgba(255,255,255,0.92);
   min-width: 0;
+  flex: 0 0 auto;
 }
 
 .topbar-brand img{
@@ -411,6 +298,7 @@ h1{
   font-size: 13px;
   text-decoration: none;
   user-select: none;
+  white-space: nowrap;
 }
 
 .topbar-pill.is-soon{
@@ -450,25 +338,7 @@ h1{
   font-size: 12px;
 }
 
-@media (max-width: 720px){
-  .topbar-name{ display: none; }
-  .ip-hint{ display: none; }
-}
-
-@media (max-width: 520px){
-  .topbar{
-    top: 10px;
-    border-radius: 16px;
-  }
-  .topbar-nav{
-    gap: 8px;
-  }
-  .topbar-pill{
-    padding: 7px 9px;
-    font-size: 12.5px;
-  }
-}
-
+/* Toast */
 .toast{
   position: fixed;
   left: 50%;
@@ -493,63 +363,78 @@ h1{
   transform: translateX(-50%) translateY(-2px);
 }
 
-/* Mobile: compact topbar so it does not dominate the page */
+/* General small screens */
+@media (max-width: 620px){
+  h1{
+    font-size: 34px;
+    line-height: 1.1;
+  }
+
+  .tagline{
+    font-size: 14px;
+    max-width: 44ch;
+  }
+
+  .wrap{ max-width: 560px; }
+  .card{ border-radius: 18px; }
+  .page-header{ padding: 26px 18px 14px 18px; }
+  .grid{ padding: 14px 14px 18px 14px; }
+  .section{ padding: 14px; border-radius: 16px; }
+}
+
+/* =========================
+   Mobile: compact topbar
+   ========================= */
 @media (max-width: 520px){
-  /* Reduce the page offset because the bar becomes smaller */
-  body{ padding-top: 96px; }
+  body{
+    padding-top: 92px;
+  }
 
   .topbar{
     top: 10px;
-    width: calc(100% - 20px);
+    width: calc(100% - 16px);
     border-radius: 16px;
   }
 
   .topbar-inner{
     padding: 8px 10px;
     gap: 10px;
+    flex-wrap: nowrap;
   }
 
-  /* Keep brand small */
+  /* Brand: icon only */
+  .topbar-name{ display: none; }
+
   .topbar-brand img{
     width: 26px;
     height: 26px;
     border-radius: 8px;
   }
 
-  .topbar-name{
-    display: none;
+  /* Nav: single row, scroll if tight */
+  .topbar-nav{
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
   }
 
-  /* Keep nav in one tight row if possible */
-  .topbar-nav{
-    gap: 8px;
-    justify-content: flex-end;
-  }
+  .topbar-nav::-webkit-scrollbar{ display: none; }
+
+  /* Hide coming soon pills on mobile */
+  .topbar-pill.is-soon{ display: none; }
 
   .topbar-pill{
-    padding: 8px 10px;
+    padding: 7px 9px;
     font-size: 12.5px;
   }
 
-  /* Make the IP button not ridiculously wide */
-  .topbar-pill.is-ip{
-    flex: 1 1 auto;
-    justify-content: center;
-    min-width: 0;
-  }
+  .ip-hint{ display: none; }
 
   .topbar-pill.is-ip code{
     font-size: 12px;
-  }
-
-  .ip-hint{
-    display: none;
-  }
-}
-
-@media (max-width: 520px){
-  /* Hide "Coming Soon" pills on mobile */
-  .topbar-pill.is-soon{
-    display: none;
   }
 }
