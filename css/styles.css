@@ -28,8 +28,10 @@
 }
 
 .hero-logo{
-  width: 120px;
-  height: 120px;
+  /* Responsive size: never huge, never tiny */
+  width: clamp(88px, 12vw, 130px);
+  height: clamp(88px, 12vw, 130px);
+
   margin: 0 auto 18px auto;
   border-radius: 28px;
   position: relative;
@@ -43,25 +45,30 @@
   animation: floaty 4.2s ease-in-out infinite;
 }
 
-.hero-logo img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero-logo-img{
+  width: 92%;
+  height: 92%;
+
+  /* This is the key: do not let the image overflow */
+  object-fit: contain;
+
+  /* Prevent weird stretching or pixel jaggies */
+  image-rendering: auto;
+
   display: block;
   border-radius: 28px;
-  transform: translateZ(0);
 }
+
 
 @keyframes floaty{
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-8px); }
 }
 
-/* Soft warm glow that breathes */
 .hero-logo::after{
   content: "";
   position: absolute;
-  inset: -18px;
+  inset: -12px;
   border-radius: 36px;
   background: radial-gradient(circle at 50% 35%, rgba(255,170,60,0.20), transparent 60%);
   filter: blur(12px);
