@@ -39,7 +39,7 @@
 
   <main class="wrap" role="main">
     <div class="hero-logo" aria-label="FluxMC logo">
-      <img class="hero-logo-img" src="assets/logo.png" alt="FluxMC Logo" />
+      <img class="hero-logo-img" src="assets/logo.png" alt="FluxMC logo" />
       <span class="logo-ping" aria-hidden="true"></span>
     </div>
 
@@ -49,7 +49,6 @@
         <p class="tagline">The world evolves with you. A survival server focused on long-term progression.</p>
 
         <div class="pillrow">
-          <div class="pill">IP: <strong><code>play.fluxmc.gg</code></strong></div>
           <div class="pill">Version: <strong>1.21.11</strong></div>
           <div class="pill">Java + Bedrock</div>
         </div>
@@ -57,22 +56,32 @@
 
       <div class="grid">
         <section class="section">
-          <h2>What FluxMC Is</h2>
+          <h2>About</h2>
           <p>
             Survival with milestones you can work toward over time.
             No pay-to-win. Cosmetics and quality-of-life only.
           </p>
-          
         </section>
       </div>
     </div>
   </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <script src="js/embers.js"></script>
 
   <script>
     (function () {
       const ip = "play.fluxmc.gg";
+
+      function showToast(msg){
+        const t = document.getElementById("toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1400);
+      }
 
       function copy(text) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -88,30 +97,22 @@
       }
 
       const ipText = document.getElementById("ipText");
-      const btn1 = document.getElementById("copyIpBtn");
-      const btn2 = document.getElementById("copyIpBtn2");
+      const btn = document.getElementById("copyIpBtn");
 
-      if (btn1) {
-        btn1.addEventListener("click", async () => {
+      if (btn) {
+        btn.addEventListener("click", async () => {
           try {
             await copy(ip);
+            showToast("Copied: " + ip);
+
             if (ipText) {
               const prev = ipText.textContent;
               ipText.textContent = "Copied!";
               setTimeout(() => (ipText.textContent = prev), 1200);
             }
-          } catch (e) {}
-        });
-      }
-
-      if (btn2) {
-        btn2.addEventListener("click", async () => {
-          try {
-            await copy(ip);
-            const prev = btn2.textContent;
-            btn2.textContent = "Copied!";
-            setTimeout(() => (btn2.textContent = prev), 1200);
-          } catch (e) {}
+          } catch (e) {
+            showToast("Copy failed");
+          }
         });
       }
     })();
