@@ -9,8 +9,8 @@
   --gold: rgba(235, 200, 130, 0.92);
 
   /* Parchment base */
-  --parch-1: rgba(236, 218, 186, 0.94);
-  --parch-2: rgba(200, 176, 136, 0.92);
+  --parch-1: rgba(244, 229, 200, 0.96);
+  --parch-2: rgba(210, 182, 136, 0.94);
 
   /* Ink */
   --ink: rgba(24, 16, 10, 0.92);
@@ -33,13 +33,13 @@
   --dev-banner-lift: -8px;
 
   /* Parchment texture strength */
-  --grain-opacity: 0.11;
-  --fiber-opacity: 0.20;
-  --speck-opacity: 0.10;
+  --grain-opacity: 0.10;
+  --fiber-opacity: 0.10;     /* was 0.20 */
+  --speck-opacity: 0.08;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.09;
-  --filigree-opacity: 0.12;
+  --wm-opacity: 0.07;        /* keep subtle */
+  --filigree-opacity: 0.10;
 
   /* Typography */
   --ui-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -156,45 +156,44 @@ body::before{
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1200px, calc(100% - 24px));
+  width: min(var(--panel-w), calc(100% - 24px)); /* attach to decree width */
   height: var(--topbar-h);
   z-index: 9999;
 
   background:
-    linear-gradient(180deg, rgba(245, 229, 196, 0.94), rgba(214, 189, 145, 0.90)),
-    radial-gradient(900px 120px at 50% 50%, rgba(120, 70, 35, 0.14), transparent 60%);
-
-  border: 1px solid rgba(70, 42, 22, 0.58);
-  border-radius: 16px;
+    linear-gradient(180deg, rgba(248, 235, 210, 0.96), rgba(218, 192, 150, 0.92));
+  border: 1px solid rgba(70, 42, 22, 0.62);
+  border-radius: 14px;
 
   box-shadow:
-    0 22px 70px rgba(0,0,0,0.72),
-    inset 0 1px 0 rgba(255,255,255,0.20),
+    0 22px 60px rgba(0,0,0,0.62),
+    inset 0 1px 0 rgba(255,255,255,0.28),
     inset 0 -1px 0 rgba(0,0,0,0.18);
 
   overflow: hidden;
 }
 
+/* engraved inner frame */
 .topbar::before{
   content: "";
   position: absolute;
-  inset: 6px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(10,8,7,0.62), rgba(10,8,7,0.30));
-  opacity: 0.16;
+  inset: 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(235,200,130,0.42);
+  opacity: 0.9;
   pointer-events: none;
 }
 
-/* Gold inlay line */
+/* thin gold inlay */
 .topbar::after{
   content: "";
   position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 10px;
+  left: 18px;
+  right: 18px;
+  bottom: 12px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(235,200,130,0.55), transparent);
-  opacity: 0.7;
+  background: linear-gradient(90deg, transparent, rgba(235,200,130,0.62), transparent);
+  opacity: 0.9;
   pointer-events: none;
 }
 
@@ -207,7 +206,7 @@ body::before{
   grid-template-columns: auto 1fr;
   align-items: center;
 
-  padding: 10px 14px;
+  padding: 10px 16px;
   gap: 14px;
 }
 
@@ -240,7 +239,7 @@ body::before{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 10px;
+  gap: 8px;
 
   min-width: 0;
   overflow-x: auto;
@@ -257,20 +256,28 @@ body::before{
   justify-content: center;
 
   padding: 8px 10px;
-  border-radius: 12px; /* was 999px */
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 900;
   font-size: 13px;
-  color: rgba(20, 12, 8, 0.90);
+  color: rgba(20, 12, 8, 0.92);
 
-  background: rgba(0,0,0,0.08);
-  border: 1px solid rgba(70, 42, 22, 0.34);
+  background: transparent;
+  border: 1px solid transparent;
   flex: 0 0 auto;
 }
 
 .topbar-link:hover{
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(70, 42, 22, 0.22);
+}
+
+/* active tab reads like an engraved selection */
+.topbar-link.is-active{
+  background: rgba(40, 26, 16, 0.62);
+  color: rgba(255,255,255,0.92);
   border-color: rgba(235, 200, 130, 0.55);
-  filter: brightness(1.05);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
 }
 
 .topbar-sep{
@@ -339,10 +346,17 @@ body::before{
   box-shadow: var(--shadow);
 
   background:
-    radial-gradient(900px 420px at 50% 0%, rgba(255,255,255,0.20), transparent 62%),
-    radial-gradient(1200px 900px at 20% 20%, rgba(120, 70, 35, 0.12), transparent 55%),
-    radial-gradient(900px 700px at 80% 70%, rgba(120, 70, 35, 0.10), transparent 58%),
-    radial-gradient(1400px 980px at 50% 50%, rgba(0,0,0,0.08), rgba(0,0,0,0.34)),
+    /* warm highlight bloom */
+    radial-gradient(900px 520px at 50% 10%, rgba(255,255,255,0.26), transparent 62%),
+
+    /* subtle stains */
+    radial-gradient(900px 700px at 18% 28%, rgba(120, 70, 35, 0.10), transparent 58%),
+    radial-gradient(900px 700px at 86% 72%, rgba(120, 70, 35, 0.08), transparent 62%),
+
+    /* paper depth (keep light, avoid gray wash) */
+    radial-gradient(1400px 980px at 50% 55%, rgba(0,0,0,0.06), rgba(0,0,0,0.18)),
+
+    /* base parchment */
     linear-gradient(180deg, var(--parch-1), var(--parch-2));
 }
 
@@ -355,12 +369,15 @@ body::before{
   z-index: 1;
 
   background:
-    radial-gradient(1400px 900px at 50% 40%, transparent 46%, rgba(40,24,14,0.36)),
-    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.14), rgba(0,0,0,0.32)),
-    radial-gradient(240px 240px at 8% 8%, rgba(40,24,14,0.18), transparent 60%),
-    radial-gradient(260px 260px at 92% 10%, rgba(40,24,14,0.16), transparent 62%),
-    radial-gradient(260px 260px at 10% 92%, rgba(40,24,14,0.14), transparent 62%),
-    radial-gradient(280px 280px at 94% 92%, rgba(40,24,14,0.18), transparent 64%);
+    /* edge burn */
+    radial-gradient(1400px 900px at 50% 45%, transparent 52%, rgba(35, 20, 12, 0.26)),
+    /* bottom weight */
+    radial-gradient(900px 700px at 50% 120%, rgba(0,0,0,0.12), rgba(0,0,0,0.26)),
+    /* worn corners */
+    radial-gradient(260px 260px at 8% 10%, rgba(35,20,12,0.14), transparent 62%),
+    radial-gradient(260px 260px at 92% 10%, rgba(35,20,12,0.14), transparent 62%),
+    radial-gradient(260px 260px at 10% 92%, rgba(35,20,12,0.12), transparent 64%),
+    radial-gradient(260px 260px at 92% 92%, rgba(35,20,12,0.14), transparent 64%);
 }
 
 /* Grain layer */
@@ -426,7 +443,7 @@ body::before{
       rgba(255,255,255,0.00) 2px,
       rgba(255,255,255,0.00) 10px
     );
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
 }
 
 /* Specks layer */
