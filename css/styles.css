@@ -557,3 +557,74 @@ h1{
     margin-bottom: 12px;
   }
 }
+
+/* =========================================================
+   Nav image per-button sizing + Dev banner "engulf" sizing
+   Paste at END of file
+   ========================================================= */
+
+/* 1) NAV: per-item sizing so Vote can be taller than Discord/IP */
+:root{
+  --nav-vote-h: 58px;   /* Vote is visually shorter artwork, so give it more height */
+  --nav-discord-h: 54px;/* bring down slightly to align with Vote */
+  --nav-ip-h: 56px;     /* IP banner slightly taller than Discord */
+}
+
+/* If your anchors have these classes already, this is all you need */
+.nav-img.is-vote img{ height: var(--nav-vote-h) !important; }
+.nav-img.is-discord img{ height: var(--nav-discord-h) !important; }
+.nav-img.is-ip img{ height: var(--nav-ip-h) !important; }
+
+/* Fallback targeting by filename if you do NOT have is-vote / is-discord classes */
+.topbar-nav img[src*="vote"]{ height: var(--nav-vote-h) !important; }
+.topbar-nav img[src*="discord"]{ height: var(--nav-discord-h) !important; }
+.topbar-nav img[src*="ip"]{ height: var(--nav-ip-h) !important; }
+
+/* 2) DEV BANNER: make it big enough to feel like a real header element */
+:root{
+  --dev-banner-h: 86px;     /* main size */
+  --dev-banner-offset: -10px; /* negative pulls it upward */
+}
+
+.phase-badge-img{
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+}
+
+.phase-badge-img img{
+  height: var(--dev-banner-h) !important;
+  width: auto !important;
+  max-width: min(760px, 92vw); /* prevents it from exploding on ultrawide */
+  display: block !important;
+  margin: 0 auto !important;
+
+  /* “engulf” feel */
+  transform: translateY(var(--dev-banner-offset)) !important;
+
+  filter:
+    drop-shadow(0 18px 34px rgba(0,0,0,0.35))
+    drop-shadow(0 6px 10px rgba(0,0,0,0.25)) !important;
+}
+
+/* Make room so it does not collide with H1 */
+.page-header{
+  padding-top: 42px !important;
+}
+
+/* Optional: tighten the gap between banner and title for the "badge sits on parchment" vibe */
+.phase-badge-img{ margin-bottom: -6px !important; }
+
+/* Mobile tuning */
+@media (max-width: 520px){
+  :root{
+    --nav-vote-h: 40px;
+    --nav-discord-h: 38px;
+    --nav-ip-h: 40px;
+
+    --dev-banner-h: 56px;
+    --dev-banner-offset: -6px;
+  }
+
+  .page-header{ padding-top: 30px !important; }
+}
