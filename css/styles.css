@@ -539,3 +539,47 @@ body::before{
     padding: 22px 16px 18px 16px;
   }
 }
+
+/* =========================================================
+   OPTION A: Centered "poster" layout (no empty left side)
+   ========================================================= */
+
+:root{
+  --panel-w: 640px;
+}
+
+.hero{
+  grid-template-columns: 1fr;
+  min-height: calc(100vh - var(--topbar-h) - 52px);
+  place-items: start center;
+}
+
+.panel{
+  position: relative; /* not sticky on desktop now */
+  top: 0;
+  width: min(var(--panel-w), 100%);
+}
+
+.panel-inner{
+  padding-top: 18px;
+}
+
+/* Big crest on top of parchment to replace left focal point */
+.panel-crest{
+  display: grid;
+  place-items: center;
+  margin: 0 auto 6px auto;
+}
+
+.panel-crest img{
+  width: clamp(220px, 22vw, 320px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 26px 80px rgba(0,0,0,0.60));
+  opacity: 0.98;
+}
+
+/* Make the dev badge sit closer, feels like it belongs */
+.phase-badge{
+  margin-top: -10px;
+}
