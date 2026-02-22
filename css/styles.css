@@ -95,17 +95,23 @@ body::before{
   overflow: hidden;
 
   background:
-    radial-gradient(900px 380px at 18% 18%, rgba(120, 70, 35, 0.16), transparent 62%),
-    radial-gradient(820px 340px at 84% 26%, rgba(120, 70, 35, 0.12), transparent 62%),
-    radial-gradient(920px 420px at 50% 88%, rgba(80, 45, 20, 0.10), transparent 65%),
-    linear-gradient(180deg, rgba(247, 234, 206, 0.90), rgba(217, 192, 150, 0.86));
+    /* darker stains */
+    radial-gradient(900px 380px at 18% 18%, rgba(120, 70, 35, 0.22), transparent 62%),
+    radial-gradient(820px 340px at 84% 26%, rgba(120, 70, 35, 0.18), transparent 62%),
+    radial-gradient(920px 420px at 50% 88%, rgba(80, 45, 20, 0.16), transparent 65%),
 
-  border: 1px solid rgba(70, 42, 22, 0.55);
+    /* overall darkening vignette layer */
+    radial-gradient(1200px 900px at 50% 45%, rgba(0,0,0,0.16), rgba(0,0,0,0.26)),
+
+    /* parchment base (darker) */
+    linear-gradient(180deg, rgba(233, 216, 182, 0.92), rgba(193, 165, 120, 0.88));
+
+  border: 1px solid rgba(70, 42, 22, 0.58);
 
   box-shadow:
     0 26px 90px rgba(0,0,0,0.75),
-    inset 0 1px 0 rgba(255,255,255,0.22),
-    inset 0 -1px 0 rgba(0,0,0,0.18);
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.20);
 }
 
 /* Add a thin inner "ink frame" to separate parchment from background */
@@ -125,9 +131,9 @@ body::before{
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(1100px 700px at 50% 20%, rgba(0,0,0,0.08), transparent 60%),
-    radial-gradient(1200px 900px at 50% 50%, rgba(0,0,0,0.06), rgba(0,0,0,0.12));
-  opacity: 0.85;
+    radial-gradient(900px 520px at 50% 18%, rgba(0,0,0,0.10), transparent 60%),
+    radial-gradient(1200px 900px at 50% 55%, rgba(0,0,0,0.10), rgba(0,0,0,0.20));
+  opacity: 1;
 }
 
 /* Ensure children render above ::before/::after */
@@ -463,7 +469,7 @@ h1{
 }
 
 .nav-img img{
-  height: 44px;
+  height: 62px;
   width: auto;
   max-width: min(320px, 40vw);
   display: block;
@@ -492,7 +498,7 @@ h1{
 
 /* IP banner slightly larger */
 .nav-img.is-ip img{
-  height: 52px;
+  height: 70px;
 }
 
 /* =========================================================
