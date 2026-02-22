@@ -6,14 +6,14 @@
   <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
   <title>Crownfall</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=5" />
+  <link rel="stylesheet" href="css/styles.css?v=6" />
 </head>
 
 <body>
   <canvas id="embers" aria-hidden="true"></canvas>
   <div class="bg-vignette" aria-hidden="true"></div>
   <div class="frame-vignette" aria-hidden="true"></div>
-  
+
   <header class="topbar" role="banner">
     <div class="topbar-inner">
       <a class="topbar-brand" href="/" aria-label="Crownfall home">
@@ -43,8 +43,11 @@
     <section class="hero" aria-label="Crownfall overview">
       <div class="panel">
         <div class="panel-inner">
+          <div class="panel-watermark" aria-hidden="true"></div>
+          <div class="panel-filigree" aria-hidden="true"></div>
           <div class="panel-fibers" aria-hidden="true"></div>
           <div class="panel-specks" aria-hidden="true"></div>
+
           <div class="panel-content">
             <div class="panel-crest" aria-hidden="true">
               <img src="assets/logo.png" alt="" />
@@ -81,7 +84,7 @@
               </section>
 
               <section class="section" id="pillars">
-                <h2>Core Pillars</h2>
+                <h2>Pillars of the Realm</h2>
                 <p>
                   <strong>Houses, not factions.</strong> Your identity is your House, your banner, your allies, and your reputation.
                   <br />
@@ -102,7 +105,7 @@
               </section>
 
               <section class="section">
-                <h2>Get Involved</h2>
+                <h2>Join the Council</h2>
                 <p>
                   We are actively building Crownfall. Join the Discord to follow dev updates, see system previews, and get early access when testing opens.
                 </p>
@@ -184,6 +187,6 @@
       sections.forEach(s => obs.observe(s));
     }
   })();
-</script>
+  </script>
 </body>
 </html>
