@@ -1,12 +1,16 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
+  <meta
+    name="description"
+    content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11"
+  />
   <title>Crownfall</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=6" />
+  <link rel="stylesheet" href="css/styles.css?v=1" />
 </head>
 
 <body>
@@ -21,96 +25,101 @@
       </a>
 
       <nav class="topbar-nav" aria-label="Primary">
-        <a class="topbar-link" href="#about">About</a>
-        <a class="topbar-link" href="#pillars">Pillars</a>
-        <a class="topbar-link" href="#ironvale">Ironvale</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#pillars">Pillars</a>
+        <a class="nav-link" href="#ironvale">Ironvale</a>
+
+        <div class="nav-divider" aria-hidden="true"></div>
+
+        <button class="btn btn-ghost" type="button" id="copyIpBtn" aria-label="Copy server IP">
+          Copy IP
+        </button>
+
+        <a class="btn btn-primary" href="/discord" target="_blank" rel="noreferrer">
+          Discord
+        </a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap" role="main">
-    <div class="hero-logo" aria-label="Crownfall logo">
-      <img class="hero-logo-img" src="assets/logo.png" alt="Crownfall logo" />
-      <span class="logo-ping" aria-hidden="true"></span>
-    </div>
-
-    <div class="card">
-      <header class="page-header">
-        <div class="phase-badge-img" aria-label="Development phase">
-          <img src="assets/badge_development.png" alt="In Development" />
+  <main class="layout" role="main">
+    <section class="hero" aria-label="Crownfall hero">
+      <div class="hero-left" aria-hidden="true">
+        <div class="hero-crest">
+          <img src="assets/logo.png" alt="" />
         </div>
-
-        <h1>Crownfall</h1>
-
-        <p class="tagline">
-          A political medieval SMP where player-run Houses rise through Influence, diplomacy, trade, culture, and declared war.
-        </p>
-
-        <div class="cta-row" role="group" aria-label="Primary actions">
-          <a class="btn btn-primary" href="/discord" target="_blank" rel="noreferrer">
-            Join the Discord
-          </a>
-
-          <button class="btn btn-secondary" type="button" id="copyIpBtn" aria-label="Copy server IP">
-            Copy IP: <strong>play.crownfall.gg</strong>
-          </button>
-        </div>
-
-        <div class="meta-row" aria-label="Status">
-          <span class="chip">Vote: Coming Soon</span>
-          <span class="chip">Store: Coming Soon</span>
-        </div>
-
-        <div class="pillrow">
-          <div class="pill">Version: <strong>1.21.11</strong></div>
-          <div class="pill">Java + Bedrock</div>
-          <div class="pill">Capital: <strong>Ironvale</strong></div>
-        </div>
-      </header>
-
-      <div class="grid">
-        <section class="section" id="about">
-          <h2>What is Crownfall</h2>
-          <p>
-            Crownfall is a realm-scale survival experience built around politics and player agency. You form a House, claim territory,
-            build your seat of power, and compete for Influence through meaningful systems rather than constant raiding.
-          </p>
-        </section>
-
-        <section class="section" id="pillars">
-          <h2>Core Pillars</h2>
-          <p>
-            <strong>Houses, not factions.</strong> Your identity is your House, your banner, your allies, and your reputation.
-            <br />
-            <strong>Influence.</strong> A realm-wide measure of power tied to governance, status, and major decisions.
-            <br />
-            <strong>Diplomacy and economy.</strong> Trade routes, markets, taxes, and negotiated agreements matter.
-            <br />
-            <strong>War is opt-in.</strong> Formal declarations, scheduled conflicts, and objective-based outcomes.
-          </p>
-        </section>
-
-        <section class="section" id="ironvale">
-          <h2>Ironvale</h2>
-          <p>
-            Ironvale is the capital city and political hub. It is where Houses meet, treaties are signed, markets flourish,
-            and council business is handled. It is spawn, but it is also the stage.
-          </p>
-        </section>
-
-        <section class="section">
-          <h2>Get Involved</h2>
-          <p>
-            We are actively building Crownfall. Join the Discord to follow dev updates, see system previews, and get early access when testing opens.
-          </p>
-        </section>
       </div>
-    </div>
+
+      <div class="panel" aria-label="Crownfall information panel">
+        <div class="panel-inner">
+          <div class="phase-badge" aria-label="Development phase">
+            <img src="assets/badge_development.png" alt="In Development" />
+          </div>
+
+          <h1 class="title">Crownfall</h1>
+
+          <p class="subtitle">
+            A political medieval SMP where player-run Houses rise through Influence, diplomacy, trade, culture, and declared war.
+          </p>
+
+          <div class="action-row" role="group" aria-label="Primary actions">
+            <a class="btn btn-primary btn-large" href="/discord" target="_blank" rel="noreferrer">
+              Join the Discord
+            </a>
+
+            <button class="btn btn-ghost btn-large" type="button" id="copyIpBtn2">
+              Copy IP
+            </button>
+          </div>
+
+          <div class="pillrow" aria-label="Server info">
+            <div class="pill">Version: <strong>1.21.11</strong></div>
+            <div class="pill">Java + Bedrock</div>
+            <div class="pill">Capital: <strong>Ironvale</strong></div>
+          </div>
+
+          <div class="sections">
+            <section class="section" id="about">
+              <h2>What is Crownfall</h2>
+              <p>
+                Crownfall is a realm-scale survival experience built around politics and player agency. You form a House, claim territory,
+                build your seat of power, and compete for Influence through meaningful systems rather than constant raiding.
+              </p>
+            </section>
+
+            <section class="section" id="pillars">
+              <h2>Core Pillars</h2>
+              <ul class="bullets">
+                <li><strong>Houses, not factions.</strong> Your identity is your House, your banner, your allies, and your reputation.</li>
+                <li><strong>Influence.</strong> A realm-wide measure of power tied to governance, status, and major decisions.</li>
+                <li><strong>Diplomacy and economy.</strong> Trade routes, markets, taxes, and negotiated agreements matter.</li>
+                <li><strong>War is opt-in.</strong> Formal declarations, scheduled conflicts, and objective-based outcomes.</li>
+              </ul>
+            </section>
+
+            <section class="section" id="ironvale">
+              <h2>Ironvale</h2>
+              <p>
+                Ironvale is the capital city and political hub. It is where Houses meet, treaties are signed, markets flourish,
+                and council business is handled. It is spawn, but it is also the stage.
+              </p>
+            </section>
+
+            <section class="section" id="get-involved">
+              <h2>Get Involved</h2>
+              <p>
+                We are actively building Crownfall. Join the Discord to follow dev updates, see system previews, and get early access when testing opens.
+              </p>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/embers.js?v=6"></script>
+  <script src="js/embers.js?v=1"></script>
 
   <script>
     (function () {
@@ -138,8 +147,9 @@
         return Promise.resolve();
       }
 
-      const btn = document.getElementById("copyIpBtn");
-      if (btn) {
+      function wireCopy(btnId) {
+        const btn = document.getElementById(btnId);
+        if (!btn) return;
         btn.addEventListener("click", async () => {
           try {
             await copy(ip);
@@ -149,6 +159,20 @@
           }
         });
       }
+
+      wireCopy("copyIpBtn");
+      wireCopy("copyIpBtn2");
+
+      // Smooth scroll for in-page links
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const id = a.getAttribute("href");
+          const el = document.querySelector(id);
+          if (!el) return;
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      });
     })();
   </script>
 </body>
