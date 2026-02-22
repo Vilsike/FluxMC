@@ -6,13 +6,14 @@
   <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
   <title>Crownfall</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=4" />
+  <link rel="stylesheet" href="css/styles.css?v=5" />
 </head>
 
 <body>
   <canvas id="embers" aria-hidden="true"></canvas>
   <div class="bg-vignette" aria-hidden="true"></div>
 
+  <!-- Minimal topbar (brand only) -->
   <header class="topbar" role="banner">
     <div class="topbar-inner">
       <a class="topbar-brand" href="/" aria-label="Crownfall home">
@@ -20,24 +21,9 @@
         <span class="topbar-name">Crownfall</span>
       </a>
 
+      <!-- Optional small text link (kept minimal on purpose) -->
       <nav class="topbar-nav" aria-label="Primary">
-        <!-- Vote (Coming Soon) -->
-        <a class="nav-img is-disabled" href="#" aria-disabled="true" tabindex="-1">
-          <img src="assets/btn_vote_coming_soon.png" alt="Vote (Coming Soon)" />
-        </a>
-
-        <!-- Store (Coming Soon) - keep as old pill until you add btn_store_coming_soon.png -->
-        <span class="topbar-pill is-soon" aria-disabled="true">Store (Coming Soon)</span>
-
-        <!-- Discord -->
-        <a class="nav-img" href="/discord" target="_blank" rel="noreferrer">
-          <img src="assets/btn_discord.png" alt="Discord" />
-        </a>
-
-        <!-- IP (click to copy) -->
-        <button class="nav-img is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
-          <img src="assets/banner_ip.png" alt="IP: play.crownfall.gg (click to copy)" />
-        </button>
+        <a class="topbar-link" href="/discord" target="_blank" rel="noreferrer">Discord</a>
       </nav>
     </div>
   </header>
@@ -68,6 +54,27 @@
           <div class="pill">Version: <strong>1.21.11</strong></div>
           <div class="pill">Java + Bedrock</div>
           <div class="pill">Capital: <strong>Ironvale</strong></div>
+        </div>
+
+        <!-- Big buttons moved off the navbar -->
+        <div class="action-row" aria-label="Quick actions">
+          <button class="action-banner is-disabled" type="button" aria-disabled="true" tabindex="-1">
+            <img src="assets/btn_vote_coming_soon.png" alt="Vote (Coming Soon)" />
+          </button>
+
+          <!-- Store (Coming Soon) as a button placeholder.
+               Replace src later when you have an image. -->
+          <button class="action-banner is-disabled" type="button" aria-disabled="true" tabindex="-1">
+            <span class="action-pill" aria-label="Store (Coming Soon)">Store (Coming Soon)</span>
+          </button>
+
+          <a class="action-banner" href="/discord" target="_blank" rel="noreferrer">
+            <img src="assets/btn_discord.png" alt="Discord" />
+          </a>
+
+          <button class="action-banner is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
+            <img src="assets/banner_ip.png" alt="IP: play.crownfall.gg (click to copy)" />
+          </button>
         </div>
       </header>
 
@@ -113,7 +120,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <script src="js/embers.js?v=4"></script>
+  <script src="js/embers.js?v=5"></script>
 
   <script>
     (function () {
