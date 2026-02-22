@@ -444,7 +444,7 @@ h1{
 
 .nav-img img{
   /* This is the scaling that should actually be visible */
-  height: clamp(40px, 3.2vw, 62px);
+  height: 60px;
   width: auto;
   display: block;
 
@@ -475,7 +475,7 @@ h1{
 
 /* IP banner can be a touch taller */
 .nav-img.is-ip img{
-  height: clamp(46px, 3.8vw, 74px);
+  height: 64px;
 }
 
 /* =========================================================
