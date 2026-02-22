@@ -34,11 +34,11 @@
 
   /* Texture strength */
   --grain-opacity: 0.08;
-  --fiber-opacity: 0.10;
-  --speck-opacity: 0.06;
+  --fiber-opacity: 0.08;
+  --speck-opacity: 0.05;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.13;
+  --wm-opacity: 0.20;
   --filigree-opacity: 0.08;
 
   /* Typography */
@@ -365,10 +365,22 @@ body::before{
   z-index: 2;
   pointer-events: none;
 
-  background: url("../assets/map_watermark.png") center / contain no-repeat;
+  background-image: url("../assets/map_watermark.png");
+  background-repeat: no-repeat;
+
+  /* IMPORTANT: contain, not cover, so the map stays readable */
+  background-size: min(1200px, 92%) auto;
+  background-position: center 58%;
+
   opacity: var(--wm-opacity);
+
+  /* This is the part that makes it actually visible */
   mix-blend-mode: multiply;
-  filter: blue(0.35px) contrast(1.05);
+  filter:
+    grayscale(1)
+    contrast(1.55)
+    brightness(0.82)
+    blur(0.35px);
 }
 
 /* Filigree corners (subtle) */
