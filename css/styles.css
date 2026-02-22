@@ -145,6 +145,11 @@ body::before{
   scroll-margin-top: calc(var(--topbar-h) + 26px);
 }
 
+.section#core{
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
 /* =========================================================
    Topbar
    ========================================================= */
