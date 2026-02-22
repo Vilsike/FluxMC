@@ -141,13 +141,6 @@ body::before{
   scroll-margin-top: calc(var(--topbar-h) + 26px);
 }
 
-/* Active tab styling */
-.topbar-link.is-active{
-  background: rgba(40, 26, 16, 0.64);
-  color: rgba(255,255,255,0.92);
-  border-color: rgba(235, 200, 130, 0.55);
-}
-
 /* =========================================================
    Topbar
    ========================================================= */
@@ -345,19 +338,46 @@ body::before{
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
 
-  background:
-    /* warm highlight bloom */
-    radial-gradient(900px 520px at 50% 10%, rgba(255,255,255,0.26), transparent 62%),
-
-    /* subtle stains */
+  background-image:
+    url("../assets/parchment_texture.png"),
+    radial-gradient(900px 520px at 50% 10%, rgba(255,255,255,0.22), transparent 62%),
     radial-gradient(900px 700px at 18% 28%, rgba(120, 70, 35, 0.10), transparent 58%),
     radial-gradient(900px 700px at 86% 72%, rgba(120, 70, 35, 0.08), transparent 62%),
-
-    /* paper depth (keep light, avoid gray wash) */
-    radial-gradient(1400px 980px at 50% 55%, rgba(0,0,0,0.06), rgba(0,0,0,0.18)),
-
-    /* base parchment */
+    radial-gradient(1400px 980px at 50% 55%, rgba(0,0,0,0.05), rgba(0,0,0,0.16)),
     linear-gradient(180deg, var(--parch-1), var(--parch-2));
+
+  background-size:
+    cover,
+    auto,
+    auto,
+    auto,
+    auto,
+    auto;
+
+  background-position:
+    center,
+    center,
+    center,
+    center,
+    center,
+    center;
+
+  background-repeat:
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat,
+    no-repeat;
+
+  /* Blend modes must match the number of layers above */
+  background-blend-mode:
+    multiply,
+    normal,
+    multiply,
+    multiply,
+    normal,
+    normal;
 }
 
 /* Edge vignette + worn corners */
@@ -403,7 +423,7 @@ body::before{
 
   background: url("../assets/map_watermark.png") center / cover no-repeat;
   opacity: var(--wm-opacity);
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
   filter: blur(0.25px) contrast(1.06);
 }
 
@@ -699,7 +719,7 @@ body::before{
   :root{
     --topbar-h: 66px;
     --dev-banner-lift: -6px;
-    --fiber-opacity: 0.14;
+    --fiber-opacity: 0.10;
     --grain-opacity: 0.11;
     --wm-opacity: 0.075;
   }
