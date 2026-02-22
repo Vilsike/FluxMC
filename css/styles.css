@@ -11,12 +11,12 @@
   --gold: rgba(235, 200, 130, 0.92);
 
   /* Parchment base */
-  --parch-1: rgba(244, 229, 200, 0.98);
-  --parch-2: rgba(210, 182, 136, 0.96);
+  --parch-1: rgba(246, 233, 206, 0.985);
+  --parch-2: rgba(210, 182, 136, 0.965);
 
   /* Ink */
-  --ink: rgba(22, 14, 9, 0.96);
-  --ink2: rgba(22, 14, 9, 0.78);
+  --ink: rgba(18, 11, 7, 0.97);
+  --ink2: rgba(18, 11, 7, 0.78);
 
   /* Borders / Shadow */
   --border: rgba(70, 42, 22, 0.52);
@@ -27,20 +27,20 @@
   --topbar-h: 72px;
 
   /* Panel */
-  --panel-w: 1180px;
-  --panel-shift: 0px;
+  --panel-w: 1320px;
 
   /* Dev banner */
   --dev-banner-h: clamp(72px, 8vw, 110px);
   --dev-banner-lift: -8px;
 
   /* Texture strength */
-  --grain-opacity: 0.08;
   --fiber-opacity: 0.08;
   --speck-opacity: 0.05;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.20;
+  --wm-opacity: 0.34;          /* stronger so you actually SEE it */
+  --wm-size: min(1280px, 96%); /* keep readable */
+  --wm-y: 56%;
   --filigree-opacity: 0.08;
 
   /* Typography */
@@ -312,11 +312,6 @@ body::before{
 
 .panel{
   width: min(var(--panel-w), 100%);
-  transform: translateX(var(--panel-shift));
-}
-
-@media (max-width: 980px){
-  .panel{ transform: translateX(0); }
 }
 
 /* =========================================================
@@ -336,7 +331,7 @@ body::before{
     linear-gradient(180deg, var(--parch-1), var(--parch-2));
 }
 
-/* Edge vignette, keep subtle */
+/* Edge vignette */
 .panel-inner::before{
   content: "";
   position: absolute;
@@ -349,20 +344,20 @@ body::before{
     radial-gradient(900px 700px at 50% 120%, rgba(0,0,0,0.08), rgba(0,0,0,0.18));
 }
 
-/* Texture as a separate overlay so it cannot destroy contrast */
+/* Texture overlay */
 .panel-inner::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 4;
-  opacity: 0.55;
+  z-index: 5;
+  opacity: 0.52;
 
   background: url("../assets/parchment_texture.png") center / cover no-repeat;
   mix-blend-mode: multiply;
 }
 
-/* Watermark map layer (visible, not full cover) */
+/* Watermark map (BOLDER and more readable) */
 .panel-watermark{
   position: absolute;
   inset: 0;
@@ -371,20 +366,37 @@ body::before{
 
   background-image: url("../assets/map_watermark.png");
   background-repeat: no-repeat;
-  background-size: min(1200px, 92%) auto;
-  background-position: center 58%;
+  background-size: var(--wm-size) auto;
+  background-position: center var(--wm-y);
 
   opacity: var(--wm-opacity);
-  mix-blend-mode: multiply;
 
+  /* Two-layer trick: multiply plus sharpen */
+  mix-blend-mode: multiply;
   filter:
     grayscale(1)
-    contrast(1.55)
-    brightness(0.82)
-    blur(0.35px);
+    contrast(1.9)
+    brightness(0.72);
 }
 
-/* Filigree corners (subtle) */
+/* Second pass to guarantee visibility even on light parchment */
+.panel-watermark::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image: url("../assets/map_watermark.png");
+  background-repeat: no-repeat;
+  background-size: var(--wm-size) auto;
+  background-position: center var(--wm-y);
+
+  opacity: 0.14;
+  mix-blend-mode: overlay;
+  filter: grayscale(1) contrast(1.8);
+}
+
+/* Filigree corners */
 .panel-filigree{
   position: absolute;
   inset: 0;
@@ -397,20 +409,20 @@ body::before{
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%20viewBox%3D%270%200%20160%20160%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23301f14%27%20stroke-opacity%3D%270.65%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M142%2048%20C132%2028%20112%2018%2086%2018%20C108%2026%20122%2038%20128%2058%27/%3E%3Cpath%20d%3D%27M138%2086%20C134%2072%20124%2062%20110%2060%20C118%2066%20124%2076%20124%2088%27/%3E%3Cpath%20d%3D%27M76%2022%20C90%2026%2098%2036%20100%2050%20C94%2042%2084%2036%2072%2036%27/%3E%3Cpath%20d%3D%27M142%2018%20L104%2018%27/%3E%3Cpath%20d%3D%27M142%2018%20L142%2056%27/%3E%3C/g%3E%3C/svg%3E") calc(100% - 12px) 12px / 120px 120px no-repeat;
 }
 
-/* Tattered edges overlay */
+/* Tattered edge feel (still rectangular, but reads torn) */
 .panel-tatter{
   position: absolute;
   inset: -2px;
-  z-index: 6;
+  z-index: 7;
   pointer-events: none;
 
   background:
-    radial-gradient(240px 120px at 6% 6%, rgba(35,20,12,0.18), transparent 70%),
-    radial-gradient(240px 120px at 94% 8%, rgba(35,20,12,0.18), transparent 70%),
-    radial-gradient(260px 140px at 6% 94%, rgba(35,20,12,0.16), transparent 72%),
-    radial-gradient(260px 140px at 96% 96%, rgba(35,20,12,0.18), transparent 72%),
-    radial-gradient(900px 500px at 50% 105%, rgba(0,0,0,0.10), transparent 60%);
-  opacity: 0.9;
+    radial-gradient(260px 140px at 5% 6%, rgba(35,20,12,0.22), transparent 72%),
+    radial-gradient(260px 140px at 95% 7%, rgba(35,20,12,0.22), transparent 72%),
+    radial-gradient(280px 160px at 6% 95%, rgba(35,20,12,0.20), transparent 72%),
+    radial-gradient(280px 160px at 96% 96%, rgba(35,20,12,0.22), transparent 72%),
+    radial-gradient(1400px 900px at 50% 50%, transparent 62%, rgba(0,0,0,0.10));
+  opacity: 0.85;
   mix-blend-mode: multiply;
 }
 
@@ -418,7 +430,7 @@ body::before{
 .panel-fibers{
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 6;
   pointer-events: none;
   opacity: var(--fiber-opacity);
 
@@ -444,7 +456,7 @@ body::before{
 .panel-specks{
   position: absolute;
   inset: 0;
-  z-index: 7;
+  z-index: 8;
   pointer-events: none;
   opacity: var(--speck-opacity);
 
@@ -460,7 +472,7 @@ body::before{
   padding: 18px 18px 20px 18px;
 }
 
-/* Soft readability wash behind content only */
+/* Readability wash behind content only */
 .panel-content::before{
   content: "";
   position: absolute;
@@ -469,8 +481,8 @@ body::before{
   border-radius: 14px;
 
   background:
-    radial-gradient(900px 520px at 50% 15%, rgba(255,255,255,0.22), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12));
+    radial-gradient(900px 520px at 50% 15%, rgba(255,255,255,0.18), transparent 62%),
+    linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0.10));
   opacity: 0.55;
   pointer-events: none;
 }
@@ -590,7 +602,7 @@ body::before{
 }
 
 /* =========================================================
-   Sections (Royal decree entries)
+   Sections
    ========================================================= */
 .grid{
   display: grid;
@@ -671,14 +683,14 @@ body::before{
 /* =========================================================
    Responsive
    ========================================================= */
-@media (max-width: 1200px){
-  :root{ --panel-w: 980px; }
+@media (max-width: 1280px){
+  :root{ --panel-w: 1120px; }
 }
-@media (max-width: 1020px){
-  :root{ --panel-w: 820px; }
+@media (max-width: 1100px){
+  :root{ --panel-w: 940px; }
 }
-@media (max-width: 860px){
-  :root{ --panel-w: 660px; }
+@media (max-width: 960px){
+  :root{ --panel-w: 760px; }
 }
 
 @media (max-width: 620px){
@@ -703,8 +715,7 @@ body::before{
     --topbar-h: 66px;
     --dev-banner-lift: -6px;
     --fiber-opacity: 0.12;
-    --grain-opacity: 0.08;
-    --wm-opacity: 0.12;
+    --wm-opacity: 0.22;
   }
 
   body{ padding-top: calc(var(--topbar-h) + 22px); }
