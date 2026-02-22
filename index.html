@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="FluxMC. The world evolves with you. IP: play.fluxmc.gg. Version: 1.21.11" />
-  <title>FluxMC</title>
+  <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
+  <title>Crownfall</title>
 
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -15,9 +15,9 @@
 
   <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <a class="topbar-brand" href="/" aria-label="FluxMC home">
-        <img src="assets/logo.png" alt="FluxMC logo" />
-        <span class="topbar-name">FluxMC</span>
+      <a class="topbar-brand" href="/" aria-label="Crownfall home">
+        <img src="assets/logo.png" alt="Crownfall logo" />
+        <span class="topbar-name">Crownfall</span>
       </a>
 
       <nav class="topbar-nav" aria-label="Primary">
@@ -30,7 +30,7 @@
 
         <button class="topbar-pill is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
           <span class="ip-label">IP:</span>
-          <code id="ipText">play.fluxmc.gg</code>
+          <code id="ipText">play.crownfall.gg</code>
           <span class="ip-hint">(click to copy)</span>
         </button>
       </nav>
@@ -38,44 +38,72 @@
   </header>
 
   <main class="wrap" role="main">
-    <div class="hero-logo" aria-label="FluxMC logo">
-      <img class="hero-logo-img" src="assets/logo.png" alt="FluxMC logo" />
+    <div class="hero-logo" aria-label="Crownfall logo">
+      <img class="hero-logo-img" src="assets/logo.png" alt="Crownfall logo" />
       <span class="logo-ping" aria-hidden="true"></span>
     </div>
 
-<div class="card">
-  <header class="page-header">
-    <span class="phase-badge" aria-label="Development phase">
-      DEVELOPMENT
-    </span>
+    <div class="card">
+      <header class="page-header">
+        <span class="phase-badge" aria-label="Development phase">
+          IN DEVELOPMENT
+        </span>
 
-    <h1>FluxMC</h1>
+        <h1>Crownfall</h1>
 
-    <p class="tagline">
-      The world evolves with you. A survival server focused on long-term progression.
-    </p>
+        <p class="tagline">
+          A political medieval SMP where player-run Houses rise through Influence, diplomacy, trade, culture, and declared war.
+        </p>
 
-    <a class="cta" href="/discord" target="_blank" rel="noreferrer">
-      Join the Discord
-    </a>
+        <a class="cta" href="/discord" target="_blank" rel="noreferrer">
+          Join the Discord
+        </a>
 
-    <div class="pillrow">
-      <div class="pill">Version: <strong>1.21.11</strong></div>
-      <div class="pill">Java + Bedrock</div>
-      <div class="pill">Status: <strong>In Development</strong></div>
+        <div class="pillrow">
+          <div class="pill">Version: <strong>1.21.11</strong></div>
+          <div class="pill">Java + Bedrock</div>
+          <div class="pill">Capital: <strong>Ironvale</strong></div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="section">
+          <h2>What is Crownfall</h2>
+          <p>
+            Crownfall is a realm-scale survival experience built around politics and player agency. You form a House, claim territory,
+            build your seat of power, and compete for Influence through meaningful systems rather than constant raiding.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>Core Pillars</h2>
+          <p>
+            <strong>Houses, not factions.</strong> Your identity is your House, your banner, your allies, and your reputation.
+            <br />
+            <strong>Influence.</strong> A realm-wide measure of power tied to governance, status, and major decisions.
+            <br />
+            <strong>Diplomacy and economy.</strong> Trade routes, markets, taxes, and negotiated agreements matter.
+            <br />
+            <strong>War is opt-in.</strong> Formal declarations, scheduled conflicts, and objective-based outcomes.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>Ironvale</h2>
+          <p>
+            Ironvale is the capital city and political hub. It is where Houses meet, treaties are signed, markets flourish,
+            and council business is handled. It is spawn, but it is also the stage.
+          </p>
+        </section>
+
+        <section class="section">
+          <h2>Get Involved</h2>
+          <p>
+            We are actively building Crownfall. Join the Discord to follow dev updates, see system previews, and get early access when testing opens.
+          </p>
+        </section>
+      </div>
     </div>
-  </header>
-
-  <div class="grid">
-    <section class="section">
-      <h2>About</h2>
-      <p>
-        We are actively building FluxMC. Join the Discord to follow progress, see dev updates, and get early access when we open testing.
-      </p>
-    </section>
-  </div>
-</div>
-
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -84,9 +112,9 @@
 
   <script>
     (function () {
-      const ip = "play.fluxmc.gg";
+      const ip = "play.crownfall.gg";
 
-      function showToast(msg){
+      function showToast(msg) {
         const t = document.getElementById("toast");
         if (!t) return;
         t.textContent = msg;
