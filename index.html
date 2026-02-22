@@ -122,71 +122,70 @@
   <script src="js/embers.js?v=5"></script>
 
   <script>
-  (function () {
-    const ip = "play.crownfall.gg";
+    (function () {
+      const ip = "play.crownfall.gg";
 
-    function showToast(msg) {
-      const t = document.getElementById("toast");
-      if (!t) return;
-      t.textContent = msg;
-      t.classList.add("show");
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1400);
-    }
-
-    function copy(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(text);
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(() => t.classList.remove("show"), 1400);
       }
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-      return Promise.resolve();
-    }
 
-    async function handleCopy() {
-      try {
-        await copy(ip);
-        showToast("Copied: " + ip);
-      } catch (e) {
-        showToast("Copy failed");
+      function copy(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        }
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        return Promise.resolve();
       }
-    }
 
-    const btn1 = document.getElementById("copyIpBtn");
-    const btn2 = document.getElementById("copyIpBtn2");
-    if (btn1) btn1.addEventListener("click", handleCopy);
-    if (btn2) btn2.addEventListener("click", handleCopy);
+      async function handleCopy() {
+        try {
+          await copy(ip);
+          showToast("Copied: " + ip);
+        } catch (e) {
+          showToast("Copy failed");
+        }
+      }
 
-    // Active nav state based on scroll position
-    const links = Array.from(document.querySelectorAll(".topbar-nav a.topbar-link"));
-    const sections = links
-      .map(a => document.querySelector(a.getAttribute("href")))
-      .filter(Boolean);
+      const btn1 = document.getElementById("copyIpBtn");
+      const btn2 = document.getElementById("copyIpBtn2");
+      if (btn1) btn1.addEventListener("click", handleCopy);
+      if (btn2) btn2.addEventListener("click", handleCopy);
 
-    if (sections.length) {
-      const obs = new IntersectionObserver((entries) => {
-        const visible = entries
-          .filter(e => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      const links = Array.from(document.querySelectorAll(".topbar-nav a.topbar-link"));
+      const sections = links
+        .map(a => document.querySelector(a.getAttribute("href")))
+        .filter(Boolean);
 
-        if (!visible) return;
+      if (sections.length) {
+        const obs = new IntersectionObserver((entries) => {
+          const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-        links.forEach(a => a.classList.remove("is-active"));
-        const active = links.find(a => a.getAttribute("href") === "#" + visible.target.id);
-        if (active) active.classList.add("is-active");
-      }, {
-        root: null,
-        rootMargin: "-20% 0px -70% 0px",
-        threshold: [0.15, 0.25, 0.35]
-      });
+          if (!visible) return;
 
-      sections.forEach(s => obs.observe(s));
-    }
-  })();
+          links.forEach(a => a.classList.remove("is-active"));
+          const active = links.find(a => a.getAttribute("href") === "#" + visible.target.id);
+          if (active) active.classList.add("is-active");
+        }, {
+          root: null,
+          rootMargin: "-20% 0px -70% 0px",
+          threshold: [0.15, 0.25, 0.35]
+        });
+
+        sections.forEach(s => obs.observe(s));
+      }
+    })();
   </script>
 </body>
 </html>
