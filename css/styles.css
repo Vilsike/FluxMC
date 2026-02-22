@@ -350,13 +350,12 @@ h1{
   position: relative;
   z-index: 1;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
 
-  /* A bit taller so the buttons can breathe */
   padding: 14px 16px;
+  gap: 12px;
 }
 
 .topbar-brand{
@@ -390,34 +389,16 @@ h1{
 .topbar-nav{
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-
-  /* Key: do NOT allow the nav area to crush items */
-  flex: 1 1 auto;
-  min-width: 0;
+  justify-content: center;
 
   gap: 14px;
   flex-wrap: nowrap;
+
+  min-width: 0;
 }
 
 /* Store pill */
 .topbar-pill{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 9px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(70, 42, 22, 0.42);
-  background: rgba(0,0,0,0.10);
-
-  color: rgba(20, 12, 8, 0.92);
-  font-weight: 900;
-  font-size: 13px;
-  text-decoration: none;
-  user-select: none;
-  white-space: nowrap;
-
   flex: 0 0 auto;
 }
 
@@ -432,24 +413,20 @@ h1{
   align-items: center;
   justify-content: center;
 
+  flex: 0 0 auto;
+
   background: transparent;
   border: 0;
   padding: 0;
   cursor: pointer;
   line-height: 0;
-
-  /* Key: never let these shrink in flex */
-  flex: 0 0 auto;
 }
 
 .nav-img img{
-  /* This is the scaling that should actually be visible */
-  height: 60px;
+  height: var(--nav-h);
   width: auto;
-  display: block;
-
-  /* Key: prevent accidental width caps from older CSS */
   max-width: none;
+  display: block;
 
   filter: drop-shadow(0 12px 20px rgba(0,0,0,0.38)) contrast(1.08);
   transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
@@ -461,7 +438,7 @@ h1{
 }
 
 .nav-img:active img{
-  transform: translateY(0px);
+  transform: translateY(0);
 }
 
 .nav-img.is-disabled{
@@ -475,7 +452,7 @@ h1{
 
 /* IP banner can be a touch taller */
 .nav-img.is-ip img{
-  height: 64px;
+  height: var(--nav-ip-h);
 }
 
 /* =========================================================
@@ -506,22 +483,6 @@ h1{
 }
 
 /* =========================================================
-   Hardening: target other possible nav markup
-   If your HTML is not using .nav-img, these still catch it.
-   ========================================================= */
-.topbar-nav img{
-  height: clamp(40px, 3.2vw, 62px);
-  width: auto;
-  max-width: none;
-}
-
-.topbar-nav a,
-.topbar-nav button,
-.topbar-nav span{
-  flex: 0 0 auto;
-}
-
-/* =========================================================
    Responsive
    ========================================================= */
 @media (max-width: 620px){
@@ -545,7 +506,10 @@ h1{
 }
 
 @media (max-width: 520px){
-  body{ padding-top: 102px; }
+  :root{
+    --nav-h: 42px;
+    --nav-ip-h: 46px;
+  }
 
   .topbar{
     top: 10px;
@@ -568,12 +532,13 @@ h1{
 
   /* Mobile nav scroll row */
   .topbar-nav{
+    justify-content: flex-end;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    gap: 10px;
-    padding-bottom: 2px;
   }
+  .topbar-nav::-webkit-scrollbar{ display: none; }
+}
   .topbar-nav::-webkit-scrollbar{ display: none; }
 
   .topbar-pill.is-soon{ display: none; }
