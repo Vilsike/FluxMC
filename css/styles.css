@@ -1,5 +1,4 @@
 :root{
-  
   --bg: #070606;
 
   /* Atmosphere */
@@ -25,7 +24,7 @@
   /* Layout */
   --topbar-h: 72px;
 
-  /* Option C panel */
+  /* Panel */
   --panel-w: 860px;
   --panel-shift: 0px;
 
@@ -36,44 +35,20 @@
   /* Parchment texture strength */
   --grain-opacity: 0.11;
   --fiber-opacity: 0.20;
-}
+  --speck-opacity: 0.10;
 
-:root{
+  /* Watermark + filigree */
+  --wm-opacity: 0.09;
+  --filigree-opacity: 0.12;
+
+  /* Typography */
   --ui-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
-
-.topbar,
-.topbar * ,
-.cta,
-.pill,
-.section h2{
-  font-family: var(--ui-font);
-}
-
-.title,
-.tagline,
-.section p{
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
 
-html{
-  scroll-behavior: smooth;
-}
-
-/* When you jump to #about etc, offset for the fixed topbar */
-.section{
-  scroll-margin-top: calc(var(--topbar-h) + 26px);
-}
-
-/* Active tab styling */
-.topbar-link.is-active{
-  background: rgba(40, 26, 16, 0.64);
-  color: rgba(255,255,255,0.92);
-  border-color: rgba(235, 200, 130, 0.55);
-}
+html{ scroll-behavior: smooth; }
 
 body{
   margin: 0;
@@ -125,6 +100,7 @@ body::before{
     radial-gradient(1500px 1100px at 50% 50%, rgba(0,0,0,0.38), rgba(0,0,0,0.94));
 }
 
+/* Foreground framing */
 .frame-vignette{
   position: fixed;
   inset: 0;
@@ -143,6 +119,33 @@ body::before{
   z-index: 2;
   width: min(1400px, 100%);
   margin: 0 auto;
+}
+
+/* Typography split: UI vs parchment */
+.topbar,
+.topbar * ,
+.cta,
+.pill,
+.section h2{
+  font-family: var(--ui-font);
+}
+
+.title,
+.tagline,
+.section p{
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* When you jump to #about etc, offset for the fixed topbar */
+.section{
+  scroll-margin-top: calc(var(--topbar-h) + 26px);
+}
+
+/* Active tab styling */
+.topbar-link.is-active{
+  background: rgba(40, 26, 16, 0.64);
+  color: rgba(255,255,255,0.92);
+  border-color: rgba(235, 200, 130, 0.55);
 }
 
 /* =========================================================
@@ -179,6 +182,19 @@ body::before{
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(10,8,7,0.62), rgba(10,8,7,0.30));
   opacity: 0.16;
+  pointer-events: none;
+}
+
+/* Gold inlay line */
+.topbar::after{
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(235,200,130,0.55), transparent);
+  opacity: 0.7;
   pointer-events: none;
 }
 
@@ -241,7 +257,7 @@ body::before{
   justify-content: center;
 
   padding: 8px 10px;
-  border-radius: 999px;
+  border-radius: 12px; /* was 999px */
   text-decoration: none;
   font-weight: 900;
   font-size: 13px;
@@ -294,7 +310,7 @@ body::before{
 }
 
 /* =========================================================
-   Option C hero layout
+   Hero layout
    ========================================================= */
 .hero{
   min-height: calc(100vh - var(--topbar-h) - 52px);
@@ -309,13 +325,11 @@ body::before{
 }
 
 @media (max-width: 980px){
-  .panel{
-    transform: translateX(0);
-  }
+  .panel{ transform: translateX(0); }
 }
 
 /* =========================================================
-   Parchment panel (grain + fibers + edge vignette)
+   Parchment panel
    ========================================================= */
 .panel-inner{
   position: relative;
@@ -332,26 +346,30 @@ body::before{
     linear-gradient(180deg, var(--parch-1), var(--parch-2));
 }
 
-/* Edge vignette to make it feel like a sheet */
+/* Edge vignette + worn corners */
 .panel-inner::before{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(1200px 900px at 50% 40%, transparent 48%, rgba(40, 24, 14, 0.34)),
-    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.14), rgba(0,0,0,0.30));
-  opacity: 1;
   z-index: 1;
+
+  background:
+    radial-gradient(1400px 900px at 50% 40%, transparent 46%, rgba(40,24,14,0.36)),
+    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.14), rgba(0,0,0,0.32)),
+    radial-gradient(240px 240px at 8% 8%, rgba(40,24,14,0.18), transparent 60%),
+    radial-gradient(260px 260px at 92% 10%, rgba(40,24,14,0.16), transparent 62%),
+    radial-gradient(260px 260px at 10% 92%, rgba(40,24,14,0.14), transparent 62%),
+    radial-gradient(280px 280px at 94% 92%, rgba(40,24,14,0.18), transparent 64%);
 }
 
-/* Grain layer (SVG turbulence) */
+/* Grain layer */
 .panel-inner::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 2;
+  z-index: 4;
   opacity: var(--grain-opacity);
 
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27n%27%20x%3D%270%27%20y%3D%270%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.65%27%20numOctaves%3D%274%27%20stitchTiles%3D%27stitch%27/%3E%3C/filter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23n)%27%20opacity%3D%270.50%27/%3E%3C/svg%3E");
@@ -359,11 +377,37 @@ body::before{
   mix-blend-mode: multiply;
 }
 
+/* Watermark map layer */
+.panel-watermark{
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+
+  background: url("../assets/map_watermark.png") center / cover no-repeat;
+  opacity: var(--wm-opacity);
+  mix-blend-mode: multiply;
+  filter: blur(0.25px) contrast(1.06);
+}
+
+/* Filigree corners (subtle) */
+.panel-filigree{
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: var(--filigree-opacity);
+
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%20viewBox%3D%270%200%20160%20160%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23301f14%27%20stroke-opacity%3D%270.8%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M18%2048%20C28%2028%2048%2018%2074%2018%20C52%2026%2038%2038%2032%2058%27/%3E%3Cpath%20d%3D%27M22%2086%20C26%2072%2036%2062%2050%2060%20C42%2066%2036%2076%2036%2088%27/%3E%3Cpath%20d%3D%27M84%2022%20C70%2026%2062%2036%2060%2050%20C66%2042%2076%2036%2088%2036%27/%3E%3Cpath%20d%3D%27M18%2018%20L56%2018%27/%3E%3Cpath%20d%3D%27M18%2018%20L18%2056%27/%3E%3C/g%3E%3C/svg%3E") 12px 12px / 120px 120px no-repeat,
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%20viewBox%3D%270%200%20160%20160%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23301f14%27%20stroke-opacity%3D%270.8%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M142%2048%20C132%2028%20112%2018%2086%2018%20C108%2026%20122%2038%20128%2058%27/%3E%3Cpath%20d%3D%27M138%2086%20C134%2072%20124%2062%20110%2060%20C118%2066%20124%2076%20124%2088%27/%3E%3Cpath%20d%3D%27M76%2022%20C90%2026%2098%2036%20100%2050%20C94%2042%2084%2036%2072%2036%27/%3E%3Cpath%20d%3D%27M142%2018%20L104%2018%27/%3E%3Cpath%20d%3D%27M142%2018%20L142%2056%27/%3E%3C/g%3E%3C/svg%3E") calc(100% - 12px) 12px / 120px 120px no-repeat;
+}
+
 /* Fiber layer */
 .panel-fibers{
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
   opacity: var(--fiber-opacity);
 
@@ -385,10 +429,23 @@ body::before{
   mix-blend-mode: multiply;
 }
 
+/* Specks layer */
+.panel-specks{
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: var(--speck-opacity);
+
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Cfilter%20id%3D%27s%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%271.25%27%20numOctaves%3D%272%27/%3E%3C/filter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23s)%27%20opacity%3D%270.55%27/%3E%3C/svg%3E");
+  background-size: 420px 420px;
+  mix-blend-mode: multiply;
+}
+
 /* Content above textures */
 .panel-content{
   position: relative;
-  z-index: 4;
+  z-index: 7;
   padding: 18px 18px 20px 18px;
 }
 
@@ -508,36 +565,55 @@ body::before{
 }
 
 /* =========================================================
-   Sections
+   Sections (Royal decree entries)
    ========================================================= */
 .grid{
   display: grid;
-  gap: 14px;
+  gap: 10px;
   padding: 16px 0 0 0;
 }
 
+/* No more card blocks. This reads like a decree on parchment. */
 .section{
-  background:
-    radial-gradient(900px 220px at 50% 0%, rgba(255,255,255,0.10), transparent 70%),
-    linear-gradient(180deg, rgba(214, 192, 156, 0.86), rgba(188, 162, 122, 0.86));
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(70, 42, 22, 0.22);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  border-radius: 0;
+  padding: 14px 6px;
+  box-shadow: none;
+}
+
+.section:first-child{
+  border-top: 0;
+  padding-top: 6px;
 }
 
 .section h2{
   margin: 0 0 10px 0;
   font-size: 13.5px;
   letter-spacing: 1.3px;
-  color: rgba(24, 16, 10, 0.82);
+  color: rgba(24, 16, 10, 0.84);
   font-weight: 900;
   text-transform: uppercase;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Decree divider line */
+.section h2::after{
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(70,42,22,0.42), transparent);
+  opacity: 0.75;
 }
 
 .section p{
   margin: 0;
-  color: rgba(24, 16, 10, 0.86);
+  color: rgba(24, 16, 10, 0.88);
   line-height: 1.58;
 }
 
@@ -576,12 +652,12 @@ body::before{
     --panel-w: 640px;
     --panel-shift: 0px;
     --topbar-h: 70px;
-    --grain-opacity: 0.14;
+    --grain-opacity: 0.12;
+    --wm-opacity: 0.08;
+    --filigree-opacity: 0.10;
   }
 
-  .topbar-inner{
-    padding: 10px 12px;
-  }
+  .topbar-inner{ padding: 10px 12px; }
 }
 
 @media (max-width: 620px){
@@ -597,39 +673,21 @@ body::before{
     max-width: 44ch;
   }
 
-  .panel-content{
-    padding: 16px 14px 18px 14px;
-  }
+  .panel-content{ padding: 16px 14px 18px 14px; }
 
-  .panel-specks{
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0.10;
-
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Cfilter%20id%3D%27s%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%271.25%27%20numOctaves%3D%272%27/%3E%3C/filter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23s)%27%20opacity%3D%270.55%27/%3E%3C/svg%3E");
-  background-size: 420px 420px;
-  mix-blend-mode: multiply;
-}
-
-  .section{
-    padding: 14px;
-    border-radius: 14px;
-  }
+  .section{ padding: 12px 4px; }
 }
 
 @media (max-width: 520px){
   :root{
     --topbar-h: 66px;
     --dev-banner-lift: -6px;
-    --fiber-opacity: 0.07;
-    --grain-opacity: 0.12;
+    --fiber-opacity: 0.14;
+    --grain-opacity: 0.11;
+    --wm-opacity: 0.075;
   }
 
-  body{
-    padding-top: calc(var(--topbar-h) + 22px);
-  }
+  body{ padding-top: calc(var(--topbar-h) + 22px); }
 
   .topbar{
     top: 10px;
