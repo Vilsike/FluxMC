@@ -1,13 +1,17 @@
 :root{
-  --bg: #0b0f17;
-  --card: rgba(255,255,255,0.06);
-  --card2: rgba(255,255,255,0.10);
+  --bg: #070606;
   --text: rgba(255,255,255,0.92);
-  --muted: rgba(255,255,255,0.70);
-  --border: rgba(255,255,255,0.12);
-  --accent: #f4c542;
-  --accent2: #ffd86a;
-  --shadow: 0 12px 40px rgba(0,0,0,0.55);
+  --muted: rgba(255,255,255,0.72);
+
+  /* Crownfall palette */
+  --gold: rgba(235, 200, 130, 0.92);
+  --gold2: rgba(255, 216, 120, 0.95);
+  --iron: rgba(16, 13, 12, 0.78);
+  --iron2: rgba(10, 8, 7, 0.68);
+
+  --border: rgba(210, 170, 90, 0.22);
+  --border2: rgba(255,255,255,0.10);
+  --shadow: 0 18px 60px rgba(0,0,0,0.65);
 }
 
 *{ box-sizing: border-box; }
@@ -15,20 +19,34 @@ html, body{ height: 100%; }
 
 body{
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-  color: var(--text);
-  background:
-    radial-gradient(900px 600px at 20% 10%, rgba(244,197,66,0.18), transparent 60%),
-    radial-gradient(900px 600px at 80% 20%, rgba(255,216,106,0.10), transparent 60%),
-    radial-gradient(900px 600px at 50% 90%, rgba(255,255,255,0.05), transparent 60%),
-    var(--bg);
 
-  /* Better than grid for mobile + fixed header */
+  /* Keep it readable. Still default-safe fonts, but less "app UI" feel */
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  color: var(--text);
+  background: var(--bg);
+
   display: flex;
   justify-content: center;
   align-items: flex-start;
 
   padding: 86px 16px 28px 16px;
+
+  position: relative;
+}
+
+/* Background image layer */
+body::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+
+  background: url("../assets/ironvale_bg.png") center / cover no-repeat;
+
+  /* Keep text legible */
+  filter: saturate(0.95) contrast(1.08);
+  opacity: 0.70;
 }
 
 /* Fullscreen ember layer behind content */
@@ -41,21 +59,22 @@ body{
   pointer-events: none;
 }
 
-/* Warm glow + vignette above embers, still behind content */
-.bg-vignette {
+/* Vignette and atmosphere above embers, behind content */
+.bg-vignette{
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
+
   background:
-    radial-gradient(1000px 600px at 50% 25%, rgba(255, 170, 60, 0.10), transparent 60%),
-    radial-gradient(900px 500px at 20% 80%, rgba(255, 120, 40, 0.08), transparent 60%),
-    radial-gradient(900px 500px at 80% 85%, rgba(255, 120, 40, 0.06), transparent 60%),
-    radial-gradient(1200px 900px at 50% 50%, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.85));
+    radial-gradient(1100px 700px at 55% 25%, rgba(255, 180, 90, 0.10), transparent 60%),
+    radial-gradient(900px 520px at 25% 82%, rgba(255, 120, 40, 0.06), transparent 62%),
+    radial-gradient(900px 520px at 82% 86%, rgba(255, 120, 40, 0.05), transparent 64%),
+    radial-gradient(1400px 980px at 50% 50%, rgba(0,0,0,0.35), rgba(0,0,0,0.90));
 }
 
 /* Ensure your site content sits above both */
-.wrap, .card {
+.wrap, .card{
   position: relative;
   z-index: 2;
 }
@@ -66,16 +85,19 @@ body{
   margin: 0 auto;
 }
 
+/* Main content container */
 .card{
   width: min(920px, 100%);
-  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-  border: none;
-  border-radius: 22px;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.55);
+
+  background: linear-gradient(180deg, rgba(12, 9, 8, 0.78), rgba(8, 6, 5, 0.70));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
-/* Since we renamed header tags in HTML, keep styling consistent */
+/* Page header */
 .page-header{
   padding: 34px 28px 16px 28px;
   display: grid;
@@ -86,20 +108,65 @@ body{
 
 h1{
   margin: 0;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.6px;
   font-size: 44px;
   line-height: 1.05;
+  color: rgba(255,255,255,0.94);
+  text-shadow: 0 10px 40px rgba(0,0,0,0.60);
 }
 
 .tagline{
   margin: 0;
   color: var(--muted);
   font-size: 16px;
-  line-height: 1.4;
-  max-width: 52ch;
+  line-height: 1.45;
+  max-width: 56ch;
   text-align: center;
 }
 
+/* Development badge image */
+.phase-badge-img img{
+  height: 36px;
+  width: auto;
+  display: block;
+  margin: 0 auto 2px;
+  filter: drop-shadow(0 12px 30px rgba(0,0,0,0.55));
+}
+
+/* CTA button stays CSS-based, but less modern-glass */
+.cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  padding: 12px 16px;
+  border-radius: 14px;
+
+  background: rgba(25, 18, 14, 0.72);
+  border: 1px solid rgba(210, 170, 90, 0.34);
+
+  color: rgba(255,255,255,0.92);
+  font-weight: 800;
+  text-decoration: none;
+
+  box-shadow: 0 18px 55px rgba(0,0,0,0.45);
+  transition: transform 0.08s ease, filter 0.2s ease, border-color 0.2s ease;
+}
+
+.cta:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  border-color: rgba(235, 200, 130, 0.48);
+}
+
+@media (max-width: 520px){
+  .cta{
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+/* Pill row under CTA (keep, but make less "app" feeling) */
 .pillrow{
   display: flex;
   flex-wrap: wrap;
@@ -109,11 +176,11 @@ h1{
 }
 
 .pill{
-  border: none;
-  background: rgba(0,0,0,0.28);
+  background: rgba(0,0,0,0.32);
+  border: 1px solid rgba(210, 170, 90, 0.16);
   padding: 10px 12px;
   border-radius: 999px;
-  color: var(--muted);
+  color: rgba(255,255,255,0.80);
   font-size: 14px;
   display: inline-flex;
   align-items: center;
@@ -121,10 +188,11 @@ h1{
 }
 
 .pill strong{
-  color: var(--text);
-  font-weight: 700;
+  color: rgba(255,255,255,0.95);
+  font-weight: 800;
 }
 
+/* Sections */
 .grid{
   display: grid;
   gap: 14px;
@@ -132,28 +200,28 @@ h1{
 }
 
 .section{
-  background: rgba(0,0,0,0.20);
-  border: none;
-  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.18));
+  border: 1px solid rgba(210, 170, 90, 0.14);
+  border-radius: 16px;
   padding: 18px;
 }
 
 .section h2{
   margin: 0 0 10px 0;
-  font-size: 15px;
-  letter-spacing: 0.2px;
-  color: var(--muted);
-  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.0px;
+  color: rgba(235, 210, 160, 0.92);
+  font-weight: 800;
   text-transform: uppercase;
 }
 
 .section p{
   margin: 0;
-  color: var(--text);
-  line-height: 1.55;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.58;
 }
 
-/* Hero logo (big logo under header) */
+/* Hero logo */
 .hero-logo{
   width: clamp(110px, 14vw, 160px);
   height: auto;
@@ -170,7 +238,6 @@ h1{
 
   animation: floaty 4.2s ease-in-out infinite;
 
-  /* helps keep ping dot inside for wide logos */
   padding: 10px;
 }
 
@@ -180,7 +247,7 @@ h1{
   object-fit: contain;
   display: block;
 
-  filter: drop-shadow(0 18px 60px rgba(0,0,0,0.55));
+  filter: drop-shadow(0 18px 60px rgba(0,0,0,0.60));
 }
 
 @keyframes floaty{
@@ -191,18 +258,18 @@ h1{
 .hero-logo::after{
   content: "";
   position: absolute;
-  inset: -28px;
+  inset: -26px;
   border-radius: 999px;
-  background: radial-gradient(circle at 50% 45%, rgba(255,170,60,0.22), transparent 60%);
-  filter: blur(14px);
-  opacity: 0.7;
+  background: radial-gradient(circle at 50% 45%, rgba(255,170,60,0.18), transparent 62%);
+  filter: blur(16px);
+  opacity: 0.65;
   z-index: -1;
   animation: glow 4.2s ease-in-out infinite;
 }
 
 @keyframes glow{
-  0%, 100% { opacity: 0.55; transform: scale(0.98); }
-  50% { opacity: 0.90; transform: scale(1.03); }
+  0%, 100% { opacity: 0.50; transform: scale(0.98); }
+  50% { opacity: 0.82; transform: scale(1.03); }
 }
 
 .logo-ping{
@@ -212,13 +279,13 @@ h1{
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: rgba(255, 196, 80, 0.95);
-  box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.55);
+  background: rgba(255, 196, 80, 0.92);
+  box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.50);
   animation: ping 1.6s ease-out infinite;
 }
 
 @keyframes ping{
-  0% { box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.55); }
+  0% { box-shadow: 0 0 0 0 rgba(255, 196, 80, 0.50); }
   100% { box-shadow: 0 0 0 16px rgba(255, 196, 80, 0); }
 }
 
@@ -231,13 +298,16 @@ h1{
   width: min(1100px, calc(100% - 24px));
   z-index: 9999;
 
-  background: rgba(10, 12, 18, 0.62);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 18px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+  /* Less glass. More iron. */
+  background: rgba(10, 8, 7, 0.80);
+  border: 1px solid rgba(210, 170, 90, 0.22);
+  border-radius: 16px;
 
+  /* Keep slight softening, avoid strong modern blur */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  box-shadow: 0 18px 55px rgba(0,0,0,0.65);
   pointer-events: auto;
 }
 
@@ -264,17 +334,19 @@ h1{
   height: 30px;
   object-fit: contain;
   border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
+
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(210, 170, 90, 0.18);
 }
 
 .topbar-name{
   font-weight: 800;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.4px;
   font-size: 14px;
   white-space: nowrap;
 }
 
+/* Nav container */
 .topbar-nav{
   display: flex;
   align-items: center;
@@ -283,6 +355,7 @@ h1{
   justify-content: flex-end;
 }
 
+/* Existing pill style (only used for Store until you add a store button image) */
 .topbar-pill{
   display: inline-flex;
   align-items: center;
@@ -290,11 +363,11 @@ h1{
 
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(210, 170, 90, 0.18);
+  background: rgba(0,0,0,0.25);
 
-  color: rgba(255,255,255,0.86);
-  font-weight: 700;
+  color: rgba(255,255,255,0.84);
+  font-weight: 800;
   font-size: 13px;
   text-decoration: none;
   user-select: none;
@@ -306,36 +379,50 @@ h1{
   cursor: not-allowed;
 }
 
-.topbar-pill.is-link:hover{
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.22);
-}
+/* Image-based nav buttons */
+.nav-img{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-.topbar-pill.is-ip{
-  cursor: pointer;
-}
-
-.topbar-pill.is-ip:hover{
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.22);
-}
-
-.topbar-pill code{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 12.5px;
   background: transparent;
+  border: 0;
   padding: 0;
-  color: rgba(255,255,255,0.92);
+  cursor: pointer;
+
+  line-height: 0;
 }
 
-.ip-label{
-  color: rgba(255,255,255,0.70);
+.nav-img img{
+  height: 34px;
+  width: auto;
+  display: block;
+
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.45));
+  transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
 }
 
-.ip-hint{
-  color: rgba(255,255,255,0.65);
-  font-weight: 600;
-  font-size: 12px;
+.nav-img:hover img{
+  transform: translateY(-1px);
+  filter: drop-shadow(0 14px 26px rgba(0,0,0,0.55));
+}
+
+.nav-img:active img{
+  transform: translateY(0px);
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45));
+}
+
+.nav-img.is-disabled{
+  pointer-events: none;
+}
+
+.nav-img.is-disabled img{
+  opacity: 0.70;
+  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.40));
+}
+
+.nav-img.is-ip{
+  cursor: pointer;
 }
 
 /* Toast */
@@ -344,14 +431,14 @@ h1{
   left: 50%;
   bottom: 18px;
   transform: translateX(-50%);
-  background: rgba(10, 12, 18, 0.72);
-  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(10, 8, 7, 0.86);
+  border: 1px solid rgba(210, 170, 90, 0.20);
   border-radius: 14px;
   padding: 10px 12px;
   color: rgba(255,255,255,0.92);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 13px;
-  box-shadow: 0 18px 55px rgba(0,0,0,0.55);
+  box-shadow: 0 18px 55px rgba(0,0,0,0.65);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.15s ease, transform 0.15s ease;
@@ -363,51 +450,7 @@ h1{
   transform: translateX(-50%) translateY(-2px);
 }
 
-.phase-badge{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255, 120, 40, 0.14);
-  color: rgba(255,255,255,0.92);
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: 0.6px;
-  border: 1px solid rgba(255, 170, 60, 0.28);
-  text-transform: uppercase;
-}
-
-.cta{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4px;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background: rgba(255, 170, 60, 0.16);
-  border: 1px solid rgba(255, 170, 60, 0.30);
-  color: rgba(255,255,255,0.92);
-  font-weight: 900;
-  text-decoration: none;
-  box-shadow: 0 18px 55px rgba(0,0,0,0.40);
-  transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
-}
-
-.cta:hover{
-  transform: translateY(-1px);
-  background: rgba(255, 170, 60, 0.22);
-  border-color: rgba(255, 170, 60, 0.44);
-}
-
-@media (max-width: 520px){
-  .cta{
-    width: 100%;
-    max-width: 420px;
-  }
-}
-
-/* General small screens */
+/* Responsive */
 @media (max-width: 620px){
   h1{
     font-size: 34px;
@@ -420,15 +463,21 @@ h1{
   }
 
   .wrap{ max-width: 560px; }
-  .card{ border-radius: 18px; }
+  .card{ border-radius: 16px; }
   .page-header{ padding: 26px 18px 14px 18px; }
   .grid{ padding: 14px 14px 18px 14px; }
-  .section{ padding: 14px; border-radius: 16px; }
+  .section{ padding: 14px; border-radius: 14px; }
+
+  .phase-badge-img img{
+    height: 32px;
+  }
+
+  .nav-img img{
+    height: 32px;
+  }
 }
 
-/* =========================
-   Mobile: compact topbar
-   ========================= */
+/* Mobile: compact topbar */
 @media (max-width: 520px){
   body{
     padding-top: 92px;
@@ -437,7 +486,7 @@ h1{
   .topbar{
     top: 10px;
     width: calc(100% - 16px);
-    border-radius: 16px;
+    border-radius: 14px;
   }
 
   .topbar-inner{
@@ -464,21 +513,15 @@ h1{
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 8px;
+    padding-bottom: 2px;
   }
 
   .topbar-nav::-webkit-scrollbar{ display: none; }
 
-  /* Hide coming soon pills on mobile */
+  /* Hide "coming soon" text pill on mobile */
   .topbar-pill.is-soon{ display: none; }
 
-  .topbar-pill{
-    padding: 7px 9px;
-    font-size: 12.5px;
-  }
-
-  .ip-hint{ display: none; }
-
-  .topbar-pill.is-ip code{
-    font-size: 12px;
+  .nav-img img{
+    height: 30px;
   }
 }
