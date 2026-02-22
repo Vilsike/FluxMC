@@ -525,3 +525,79 @@ h1{
     height: 30px;
   }
 }
+
+/* =========================
+   Crownfall Topbar: Parchment
+   ========================= */
+
+.topbar{
+  background:
+    /* parchment base */
+    linear-gradient(180deg, rgba(245, 229, 196, 0.92), rgba(214, 189, 145, 0.88)),
+    /* subtle stain */
+    radial-gradient(900px 120px at 50% 50%, rgba(120, 70, 35, 0.12), transparent 60%);
+  border: 1px solid rgba(70, 42, 22, 0.45);
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.70),
+    inset 0 1px 0 rgba(255,255,255,0.25),
+    inset 0 -1px 0 rgba(0,0,0,0.22);
+
+  /* reduce modern glass effect */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.topbar::before{
+  /* thin iron band behind parchment */
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(10,8,7,0.65), rgba(10,8,7,0.35));
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.topbar-inner{
+  position: relative;
+  z-index: 1;
+}
+
+/* Brand text and icon become dark ink, more readable */
+.topbar-brand{
+  color: rgba(20, 12, 8, 0.92);
+}
+
+.topbar-name{
+  color: rgba(20, 12, 8, 0.92);
+  letter-spacing: 0.5px;
+}
+
+.topbar-brand img{
+  background: rgba(0,0,0,0.06);
+  border: 1px solid rgba(70, 42, 22, 0.35);
+}
+
+/* Make the "Store (Coming Soon)" pill match parchment */
+.topbar-pill{
+  background: rgba(0,0,0,0.08);
+  border: 1px solid rgba(70, 42, 22, 0.35);
+  color: rgba(20, 12, 8, 0.92);
+}
+
+.topbar-pill.is-soon{
+  opacity: 0.60;
+}
+
+/* Boost nav button contrast on parchment */
+.nav-img img{
+  filter:
+    drop-shadow(0 10px 18px rgba(0,0,0,0.45))
+    contrast(1.08);
+}
+
+.nav-img:hover img{
+  filter:
+    drop-shadow(0 14px 24px rgba(0,0,0,0.55))
+    contrast(1.10);
+}
