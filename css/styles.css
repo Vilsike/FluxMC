@@ -1,16 +1,26 @@
 :root{
   --bg: #070606;
+
+  /* Atmosphere */
   --text: rgba(255,255,255,0.92);
   --muted: rgba(255,255,255,0.72);
 
+  /* Crownfall palette */
   --gold: rgba(235, 200, 130, 0.92);
-  --gold2: rgba(255, 216, 120, 0.95);
 
-  --ink: rgba(20, 12, 8, 0.92);
-  --ink2: rgba(30, 18, 12, 0.86);
+  /* Parchment */
+  --parch-1: rgba(226, 206, 172, 0.92);
+  --parch-2: rgba(198, 172, 132, 0.90);
+  --parch-3: rgba(168, 138, 98, 0.22);
 
-  --border: rgba(210, 170, 90, 0.22);
-  --shadow: 0 18px 60px rgba(0,0,0,0.65);
+  /* Ink */
+  --ink: rgba(24, 16, 10, 0.92);
+  --ink2: rgba(24, 16, 10, 0.72);
+
+  /* Borders / Shadow */
+  --border: rgba(70, 42, 22, 0.46);
+  --border-soft: rgba(70, 42, 22, 0.26);
+  --shadow: 0 22px 70px rgba(0,0,0,0.72);
 }
 
 *{ box-sizing: border-box; }
@@ -26,7 +36,8 @@ body{
   justify-content: center;
   align-items: flex-start;
 
-  padding: 96px 16px 28px 16px;
+  /* A bit more headroom for the taller topbar */
+  padding: 108px 16px 28px 16px;
   position: relative;
 }
 
@@ -36,7 +47,6 @@ body::before{
   position: fixed;
   inset: 0;
   z-index: -2;
-
   background: url("../assets/ironvale_bg.png") center / cover no-repeat;
   filter: saturate(0.95) contrast(1.08);
   opacity: 0.70;
@@ -58,12 +68,11 @@ body::before{
   inset: 0;
   z-index: 1;
   pointer-events: none;
-
   background:
     radial-gradient(1100px 700px at 55% 25%, rgba(255, 180, 90, 0.10), transparent 60%),
     radial-gradient(900px 520px at 25% 82%, rgba(255, 120, 40, 0.06), transparent 62%),
     radial-gradient(900px 520px at 82% 86%, rgba(255, 120, 40, 0.05), transparent 64%),
-    radial-gradient(1400px 980px at 50% 50%, rgba(0,0,0,0.35), rgba(0,0,0,0.90));
+    radial-gradient(1400px 980px at 50% 50%, rgba(0,0,0,0.35), rgba(0,0,0,0.92));
 }
 
 /* Ensure content sits above */
@@ -73,80 +82,54 @@ body::before{
 }
 
 .wrap{
-  width: min(980px, 100%);
-  max-width: 980px;
+  width: min(1040px, 100%);
+  max-width: 1040px;
   margin: 0 auto;
 }
 
 /* =========================================================
-   MAIN CONTENT: parchment + ink (addresses your note)
+   Main Parchment Card
    ========================================================= */
-
-/*
-  Parchment feel without needing a new image:
-  - warm gradient base
-  - subtle stains via radial gradients
-  - light vignette
-  - dark "iron" outer edge with shadow
-*/
 .card{
-  width: min(920px, 100%);
-  border-radius: 18px;
-  overflow: hidden;
+  width: min(980px, 100%);
 
+  /* Darker parchment, more depth */
   background:
-    /* darker stains */
-    radial-gradient(900px 380px at 18% 18%, rgba(120, 70, 35, 0.22), transparent 62%),
-    radial-gradient(820px 340px at 84% 26%, rgba(120, 70, 35, 0.18), transparent 62%),
-    radial-gradient(920px 420px at 50% 88%, rgba(80, 45, 20, 0.16), transparent 65%),
+    radial-gradient(900px 380px at 50% 0%, rgba(255,255,255,0.14), transparent 62%),
+    radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,0.12), rgba(0,0,0,0.32)),
+    linear-gradient(180deg, var(--parch-1), var(--parch-2));
 
-    /* overall darkening vignette layer */
-    radial-gradient(1200px 900px at 50% 45%, rgba(0,0,0,0.16), rgba(0,0,0,0.26)),
-
-    /* parchment base (darker) */
-    linear-gradient(180deg, rgba(233, 216, 182, 0.92), rgba(193, 165, 120, 0.88));
-
-  border: 1px solid rgba(70, 42, 22, 0.58);
-
-  box-shadow:
-    0 26px 90px rgba(0,0,0,0.75),
-    inset 0 1px 0 rgba(255,255,255,0.18),
-    inset 0 -1px 0 rgba(0,0,0,0.20);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
 
-/* Add a thin inner "ink frame" to separate parchment from background */
+/* Inner edge vignette to feel like a sheet */
 .card::before{
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(35, 20, 12, 0.22);
-  pointer-events: none;
-}
-
-/* Add a subtle inner vignette so text reads well */
-.card::after{
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(900px 520px at 50% 18%, rgba(0,0,0,0.10), transparent 60%),
-    radial-gradient(1200px 900px at 50% 55%, rgba(0,0,0,0.10), rgba(0,0,0,0.20));
+    radial-gradient(1200px 900px at 50% 40%, transparent 55%, rgba(40, 24, 14, 0.26)),
+    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
   opacity: 1;
 }
 
-/* Ensure children render above ::before/::after */
-.page-header, .grid{
+/* Keep content above vignette */
+.card > *{
   position: relative;
   z-index: 1;
 }
 
-/* Header */
+/* =========================================================
+   Header
+   ========================================================= */
 .page-header{
   padding: 34px 28px 16px 28px;
   display: grid;
-  gap: 16px;
+  gap: 18px;
   justify-items: center;
   text-align: center;
 }
@@ -156,50 +139,44 @@ h1{
   letter-spacing: 0.9px;
   font-size: 46px;
   line-height: 1.05;
-
-  color: rgba(20, 12, 8, 0.92);
-  text-shadow: 0 10px 40px rgba(0,0,0,0.22);
+  color: var(--ink);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
-/* Tagline: ink on parchment */
 .tagline{
   margin: 0;
-  color: rgba(35, 20, 12, 0.78);
+  color: var(--ink2);
   font-size: 16px;
   line-height: 1.45;
   max-width: 56ch;
 }
 
-/* Development badge image */
+/* Dev badge */
 .phase-badge-img img{
-  height: 96px;
+  height: 54px;
   width: auto;
   display: block;
   margin: 0 auto 6px;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 14px 26px rgba(0,0,0,0.25));
 }
 
-/* CTA: carved / stamped look */
+/* CTA */
 .cta{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2px;
+  margin-top: 4px;
   padding: 12px 16px;
   border-radius: 14px;
 
-  background: linear-gradient(180deg, rgba(42, 26, 16, 0.86), rgba(26, 16, 10, 0.88));
-  border: 1px solid rgba(210, 170, 90, 0.40);
+  background: rgba(40, 26, 16, 0.62);
+  border: 1px solid rgba(70, 42, 22, 0.42);
 
-  color: rgba(255,255,255,0.92);
+  color: rgba(255,255,255,0.94);
   font-weight: 900;
   text-decoration: none;
 
-  box-shadow:
-    0 14px 40px rgba(0,0,0,0.40),
-    inset 0 1px 0 rgba(255,255,255,0.08),
-    inset 0 -1px 0 rgba(0,0,0,0.26);
-
+  box-shadow: 0 18px 55px rgba(0,0,0,0.28);
   transition: transform 0.08s ease, filter 0.2s ease, border-color 0.2s ease;
 }
 
@@ -209,14 +186,7 @@ h1{
   border-color: rgba(235, 200, 130, 0.55);
 }
 
-@media (max-width: 520px){
-  .cta{
-    width: 100%;
-    max-width: 420px;
-  }
-}
-
-/* Pills: ink plates */
+/* Pills */
 .pillrow{
   display: flex;
   flex-wrap: wrap;
@@ -226,11 +196,11 @@ h1{
 }
 
 .pill{
-  background: rgba(20, 12, 8, 0.10);
-  border: 1px solid rgba(70, 42, 22, 0.28);
+  background: rgba(0,0,0,0.14);
+  border: 1px solid rgba(70, 42, 22, 0.24);
   padding: 10px 12px;
   border-radius: 999px;
-  color: rgba(20, 12, 8, 0.86);
+  color: rgba(24, 16, 10, 0.82);
   font-size: 14px;
   display: inline-flex;
   align-items: center;
@@ -238,14 +208,13 @@ h1{
 }
 
 .pill strong{
-  color: rgba(20, 12, 8, 0.92);
+  color: rgba(24, 16, 10, 0.92);
   font-weight: 900;
 }
 
 /* =========================================================
-   SECTIONS: parchment panels + ink headings
+   Sections
    ========================================================= */
-
 .grid{
   display: grid;
   gap: 14px;
@@ -254,47 +223,42 @@ h1{
 
 .section{
   background:
-    radial-gradient(720px 200px at 20% 20%, rgba(120, 70, 35, 0.10), transparent 62%),
-    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.10));
-  border: 1px solid rgba(70, 42, 22, 0.28);
+    radial-gradient(900px 220px at 50% 0%, rgba(255,255,255,0.10), transparent 70%),
+    linear-gradient(180deg, rgba(210, 188, 152, 0.85), rgba(186, 160, 122, 0.86));
+  border: 1px solid var(--border-soft);
   border-radius: 16px;
   padding: 18px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
 }
 
 .section h2{
   margin: 0 0 10px 0;
-  font-size: 13px;
+  font-size: 13.5px;
   letter-spacing: 1.3px;
-  color: rgba(35, 20, 12, 0.88);
+  color: rgba(24, 16, 10, 0.82);
   font-weight: 900;
   text-transform: uppercase;
 }
 
 .section p{
   margin: 0;
-  color: rgba(20, 12, 8, 0.86);
+  color: rgba(24, 16, 10, 0.86);
   line-height: 1.58;
 }
 
 /* =========================================================
-   HERO CREST
+   Hero Logo (big crest above parchment)
    ========================================================= */
-
 .hero-logo{
-  width: clamp(220px, 22vw, 320px);
+  width: clamp(210px, 22vw, 310px);
   height: auto;
-
   margin: 6px auto 18px auto;
   position: relative;
-
   display: grid;
   place-items: center;
-
   background: transparent;
   border: none;
   box-shadow: none;
-
   animation: floaty 4.2s ease-in-out infinite;
   padding: 10px;
 }
@@ -304,7 +268,7 @@ h1{
   height: auto;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 20px 70px rgba(0,0,0,0.70));
+  filter: drop-shadow(0 22px 70px rgba(0,0,0,0.55));
 }
 
 @keyframes floaty{
@@ -315,10 +279,10 @@ h1{
 .hero-logo::after{
   content: "";
   position: absolute;
-  inset: -44px;
+  inset: -46px;
   border-radius: 999px;
   background: radial-gradient(circle at 50% 45%, rgba(255,170,60,0.18), transparent 64%);
-  filter: blur(20px);
+  filter: blur(18px);
   opacity: 0.70;
   z-index: -1;
   animation: glow 4.2s ease-in-out infinite;
@@ -326,7 +290,7 @@ h1{
 
 @keyframes glow{
   0%, 100% { opacity: 0.55; transform: scale(0.98); }
-  50% { opacity: 0.82; transform: scale(1.03); }
+  50% { opacity: 0.88; transform: scale(1.03); }
 }
 
 .logo-ping{
@@ -347,22 +311,21 @@ h1{
 }
 
 /* =========================================================
-   TOPBAR: parchment (single source of truth)
+   Topbar: Parchment + FIXED NAV IMAGE SCALING
    ========================================================= */
-
 .topbar{
   position: fixed;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1180px, calc(100% - 24px));
+  width: min(1200px, calc(100% - 24px));
   z-index: 9999;
 
   background:
-    linear-gradient(180deg, rgba(245, 229, 196, 0.92), rgba(214, 189, 145, 0.88)),
-    radial-gradient(900px 120px at 50% 50%, rgba(120, 70, 35, 0.12), transparent 60%);
+    linear-gradient(180deg, rgba(245, 229, 196, 0.94), rgba(214, 189, 145, 0.90)),
+    radial-gradient(900px 120px at 50% 50%, rgba(120, 70, 35, 0.14), transparent 60%);
 
-  border: 1px solid rgba(70, 42, 22, 0.52);
+  border: 1px solid rgba(70, 42, 22, 0.58);
   border-radius: 16px;
 
   box-shadow:
@@ -370,8 +333,6 @@ h1{
     inset 0 1px 0 rgba(255,255,255,0.20),
     inset 0 -1px 0 rgba(0,0,0,0.18);
 
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   pointer-events: auto;
 }
 
@@ -380,8 +341,8 @@ h1{
   position: absolute;
   inset: 6px;
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(10,8,7,0.65), rgba(10,8,7,0.35));
-  opacity: 0.20;
+  background: linear-gradient(180deg, rgba(10,8,7,0.62), rgba(10,8,7,0.30));
+  opacity: 0.18;
   pointer-events: none;
 }
 
@@ -394,7 +355,8 @@ h1{
   justify-content: space-between;
   gap: 14px;
 
-  padding: 12px 14px;
+  /* A bit taller so the buttons can breathe */
+  padding: 14px 16px;
 }
 
 .topbar-brand{
@@ -408,8 +370,8 @@ h1{
 }
 
 .topbar-brand img{
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   border-radius: 10px;
   background: rgba(0,0,0,0.06);
@@ -424,15 +386,21 @@ h1{
   color: rgba(20, 12, 8, 0.92);
 }
 
+/* Nav container */
 .topbar-nav{
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
   justify-content: flex-end;
+
+  /* Key: do NOT allow the nav area to crush items */
+  flex: 1 1 auto;
+  min-width: 0;
+
+  gap: 14px;
+  flex-wrap: nowrap;
 }
 
-/* Store pill (temporary until you have a store image) */
+/* Store pill */
 .topbar-pill{
   display: inline-flex;
   align-items: center;
@@ -440,7 +408,7 @@ h1{
 
   padding: 9px 12px;
   border-radius: 999px;
-  border: 1px solid rgba(70, 42, 22, 0.40);
+  border: 1px solid rgba(70, 42, 22, 0.42);
   background: rgba(0,0,0,0.10);
 
   color: rgba(20, 12, 8, 0.92);
@@ -449,38 +417,47 @@ h1{
   text-decoration: none;
   user-select: none;
   white-space: nowrap;
+
+  flex: 0 0 auto;
 }
 
 .topbar-pill.is-soon{
-  opacity: 0.60;
+  opacity: 0.62;
   cursor: not-allowed;
 }
 
-/* Image-based nav buttons */
+/* Image buttons */
 .nav-img{
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   background: transparent;
   border: 0;
   padding: 0;
   cursor: pointer;
   line-height: 0;
+
+  /* Key: never let these shrink in flex */
+  flex: 0 0 auto;
 }
 
 .nav-img img{
-  height: 62px;
+  /* This is the scaling that should actually be visible */
+  height: clamp(40px, 3.2vw, 62px);
   width: auto;
-  max-width: min(320px, 40vw);
   display: block;
 
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45)) contrast(1.08);
+  /* Key: prevent accidental width caps from older CSS */
+  max-width: none;
+
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.38)) contrast(1.08);
   transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
 }
 
 .nav-img:hover img{
   transform: translateY(-1px);
-  filter: drop-shadow(0 14px 24px rgba(0,0,0,0.55)) contrast(1.10);
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.48)) contrast(1.10);
 }
 
 .nav-img:active img{
@@ -492,19 +469,18 @@ h1{
 }
 
 .nav-img.is-disabled img{
-  opacity: 0.70;
-  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.40)) contrast(1.05);
+  opacity: 0.72;
+  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.35)) contrast(1.05);
 }
 
-/* IP banner slightly larger */
+/* IP banner can be a touch taller */
 .nav-img.is-ip img{
-  height: 70px;
+  height: clamp(46px, 3.8vw, 74px);
 }
 
 /* =========================================================
-   TOAST
+   Toast
    ========================================================= */
-
 .toast{
   position: fixed;
   left: 50%;
@@ -515,7 +491,7 @@ h1{
   border-radius: 14px;
   padding: 10px 12px;
   color: rgba(255,255,255,0.92);
-  font-weight: 800;
+  font-weight: 900;
   font-size: 13px;
   box-shadow: 0 18px 55px rgba(0,0,0,0.65);
   opacity: 0;
@@ -530,9 +506,24 @@ h1{
 }
 
 /* =========================================================
-   RESPONSIVE
+   Hardening: target other possible nav markup
+   If your HTML is not using .nav-img, these still catch it.
    ========================================================= */
+.topbar-nav img{
+  height: clamp(40px, 3.2vw, 62px);
+  width: auto;
+  max-width: none;
+}
 
+.topbar-nav a,
+.topbar-nav button,
+.topbar-nav span{
+  flex: 0 0 auto;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
 @media (max-width: 620px){
   h1{
     font-size: 36px;
@@ -544,27 +535,17 @@ h1{
     max-width: 44ch;
   }
 
-  .wrap{ max-width: 560px; }
+  .wrap{ max-width: 700px; }
   .card{ border-radius: 16px; }
   .page-header{ padding: 26px 18px 14px 18px; }
   .grid{ padding: 14px 14px 18px 14px; }
   .section{ padding: 14px; border-radius: 14px; }
 
-  .phase-badge-img img{ height: 40px; }
+  .phase-badge-img img{ height: 44px; }
 }
 
-/* Tablet */
-@media (max-width: 820px){
-  .nav-img img{ height: 40px; }
-  .nav-img.is-ip img{ height: 46px; }
-  .hero-logo{ width: clamp(200px, 26vw, 280px); }
-}
-
-/* Mobile */
 @media (max-width: 520px){
-  body{
-    padding-top: 94px;
-  }
+  body{ padding-top: 102px; }
 
   .topbar{
     top: 10px;
@@ -573,98 +554,41 @@ h1{
   }
 
   .topbar-inner{
-    padding: 10px 12px;
+    padding: 12px 12px;
     gap: 10px;
-    flex-wrap: nowrap;
   }
 
   .topbar-name{ display: none; }
 
   .topbar-brand img{
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     border-radius: 8px;
   }
 
+  /* Mobile nav scroll row */
   .topbar-nav{
-    flex: 1 1 auto;
-    flex-wrap: nowrap;
-    justify-content: flex-end;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     gap: 10px;
     padding-bottom: 2px;
   }
-
   .topbar-nav::-webkit-scrollbar{ display: none; }
 
   .topbar-pill.is-soon{ display: none; }
 
-  .nav-img img{ height: 34px; }
-  .nav-img.is-ip img{ height: 38px; }
+  .nav-img img{
+    height: 40px;
+  }
+  .nav-img.is-ip img{
+    height: 44px;
+  }
 
   .phase-badge-img img{ height: 38px; }
 
   .hero-logo{
-    width: 170px;
+    width: 180px;
     margin-bottom: 12px;
   }
-}
-
-/* =========================
-   NAVBAR FIX: force image buttons to size up
-   Paste at very end of file
-   ========================= */
-
-/* Make the topbar tall enough to hold bigger art */
-.topbar {
-  height: auto !important;
-}
-
-.topbar-inner {
-  padding: 10px 14px !important;
-}
-
-/* Force the nav container to center and not compress */
-.topbar-nav {
-  display: flex !important;
-  align-items: center !important;
-  gap: 14px !important;
-  flex-wrap: nowrap !important;
-}
-
-/* Catch ALL nav images, even if the HTML is not using .nav-img */
-.topbar-nav img {
-  height: 64px !important;
-  width: auto !important;
-  max-width: none !important;
-  display: block !important;
-  object-fit: contain !important;
-
-  /* Helps them pop on parchment */
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45)) contrast(1.10) !important;
-}
-
-/* IP banner should be largest */
-.topbar-nav img#ipBanner,
-.topbar-nav .is-ip img,
-.topbar-nav img[src*="banner_ip"] {
-  height: 72px !important;
-}
-
-/* Tablet */
-@media (max-width: 820px) {
-  .topbar-nav img { height: 56px !important; }
-  .topbar-nav img#ipBanner,
-  .topbar-nav .is-ip img,
-  .topbar-nav img[src*="banner_ip"] { height: 62px !important; }
-}
-
-/* Mobile */
-@media (max-width: 520px) {
-  .topbar-nav img { height: 40px !important; }
-  .topbar-nav img#ipBanner,
-  .topbar-nav .is-ip img,
-  .topbar-nav img[src*="banner_ip"] { height: 44px !important; }
 }
