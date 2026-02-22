@@ -23,8 +23,6 @@
 
   /* Layout */
   --topbar-h: 72px;
-
-  /* Panel */
   --panel-w: 860px;
   --panel-shift: 0px;
 
@@ -32,13 +30,13 @@
   --dev-banner-h: clamp(72px, 8vw, 110px);
   --dev-banner-lift: -8px;
 
-  /* Parchment texture strength */
+  /* Texture strength */
   --grain-opacity: 0.10;
-  --fiber-opacity: 0.10;     /* was 0.20 */
+  --fiber-opacity: 0.10;
   --speck-opacity: 0.08;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.07;        /* keep subtle */
+  --wm-opacity: 0.07;
   --filigree-opacity: 0.10;
 
   /* Typography */
@@ -47,7 +45,6 @@
 
 *{ box-sizing: border-box; }
 html, body{ height: 100%; }
-
 html{ scroll-behavior: smooth; }
 
 body{
@@ -136,20 +133,20 @@ body::before{
   font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-/* When you jump to #about etc, offset for the fixed topbar */
+/* Anchor offset for fixed topbar */
 .section{
   scroll-margin-top: calc(var(--topbar-h) + 26px);
 }
 
 /* =========================================================
-   Topbar
+   Topbar (Decree strip)
    ========================================================= */
 .topbar{
   position: fixed;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(var(--panel-w), calc(100% - 24px)); /* attach to decree width */
+  width: min(var(--panel-w), calc(100% - 24px));
   height: var(--topbar-h);
   z-index: 9999;
 
@@ -370,7 +367,6 @@ body::before{
     no-repeat,
     no-repeat;
 
-  /* Blend modes must match the number of layers above */
   background-blend-mode:
     multiply,
     normal,
@@ -389,11 +385,8 @@ body::before{
   z-index: 1;
 
   background:
-    /* edge burn */
     radial-gradient(1400px 900px at 50% 45%, transparent 52%, rgba(35, 20, 12, 0.26)),
-    /* bottom weight */
     radial-gradient(900px 700px at 50% 120%, rgba(0,0,0,0.12), rgba(0,0,0,0.26)),
-    /* worn corners */
     radial-gradient(260px 260px at 8% 10%, rgba(35,20,12,0.14), transparent 62%),
     radial-gradient(260px 260px at 92% 10%, rgba(35,20,12,0.14), transparent 62%),
     radial-gradient(260px 260px at 10% 92%, rgba(35,20,12,0.12), transparent 64%),
@@ -424,7 +417,7 @@ body::before{
   background: url("../assets/map_watermark.png") center / cover no-repeat;
   opacity: var(--wm-opacity);
   mix-blend-mode: soft-light;
-  filter: blur(0.25px) contrast(1.06);
+  filter: blur(0.2px) contrast(1.06);
 }
 
 /* Filigree corners (subtle) */
@@ -602,7 +595,7 @@ body::before{
 }
 
 /* =========================================================
-   Sections (Royal decree entries)
+   Decree sections
    ========================================================= */
 .grid{
   display: grid;
@@ -610,7 +603,6 @@ body::before{
   padding: 16px 0 0 0;
 }
 
-/* No more card blocks. This reads like a decree on parchment. */
 .section{
   background: transparent;
   border: 0;
@@ -639,7 +631,6 @@ body::before{
   gap: 10px;
 }
 
-/* Decree divider line */
 .section h2::after{
   content: "";
   flex: 1;
@@ -687,7 +678,6 @@ body::before{
 @media (max-width: 860px){
   :root{
     --panel-w: 640px;
-    --panel-shift: 0px;
     --topbar-h: 70px;
     --grain-opacity: 0.12;
     --wm-opacity: 0.08;
@@ -711,7 +701,6 @@ body::before{
   }
 
   .panel-content{ padding: 16px 14px 18px 14px; }
-
   .section{ padding: 12px 4px; }
 }
 
@@ -719,7 +708,7 @@ body::before{
   :root{
     --topbar-h: 66px;
     --dev-banner-lift: -6px;
-    --fiber-opacity: 0.10;
+    --fiber-opacity: 0.14;
     --grain-opacity: 0.11;
     --wm-opacity: 0.075;
   }
