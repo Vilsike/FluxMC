@@ -1,3 +1,10 @@
+/* =========================================================
+   Crownfall styles.css (v5)
+   - Minimal topbar (brand only)
+   - Big action buttons live INSIDE the card header
+   - Safe scaling on Windows and on weird zoom
+   ========================================================= */
+
 :root{
   --bg: #070606;
 
@@ -22,16 +29,21 @@
   --shadow: 0 22px 70px rgba(0,0,0,0.72);
 
   /* Layout */
-  --topbar-h: 90px;
-
-  /* Nav image sizes (clamped so they can never blow up) */
-  --nav-vote-h: 56px;
-  --nav-discord-h: 52px;
-  --nav-ip-h: 54px;
+  --topbar-h: 68px;
 
   /* Dev banner */
-  --dev-banner-h: clamp(70px, 8vw, 104px);
+  --dev-banner-h: clamp(76px, 8vw, 112px);
   --dev-banner-lift: -10px;
+
+  /* Action row sizing */
+  --action-gap: 12px;
+  --action-h: 58px;         /* target height for plaque buttons */
+  --action-ip-h: 60px;      /* tiny taller for the IP banner */
+  --action-max-w: 350px;    /* prevents huge on ultrawide */
+
+  /* Misc */
+  --radius-lg: 18px;
+  --radius-md: 16px;
 }
 
 *{ box-sizing: border-box; }
@@ -47,7 +59,7 @@ body{
   justify-content: center;
   align-items: flex-start;
 
-  padding: calc(var(--topbar-h) + 26px) 16px 28px 16px;
+  padding: calc(var(--topbar-h) + 22px) 16px 28px 16px;
   position: relative;
 }
 
@@ -99,14 +111,14 @@ body::before{
 }
 
 /* =========================================================
-   Topbar (fixed, constrained, never lets images explode)
+   Topbar (minimal)
    ========================================================= */
 .topbar{
   position: fixed;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1200px, calc(100% - 24px));
+  width: min(1100px, calc(100% - 24px));
   height: var(--topbar-h);
   z-index: 9999;
 
@@ -123,7 +135,6 @@ body::before{
     inset 0 -1px 0 rgba(0,0,0,0.18);
 
   overflow: hidden;
-  pointer-events: auto;
 }
 
 .topbar::before{
@@ -141,11 +152,11 @@ body::before{
   z-index: 1;
   height: 100%;
 
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
 
-  padding: 12px 16px;
+  padding: 10px 14px;
   gap: 14px;
 }
 
@@ -156,12 +167,11 @@ body::before{
   text-decoration: none;
   color: rgba(20, 12, 8, 0.92);
   min-width: 0;
-  flex: 0 0 auto;
 }
 
 .topbar-brand img{
-  width: 38px;
-  height: 38px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
   border-radius: 10px;
   background: rgba(0,0,0,0.06);
@@ -176,106 +186,36 @@ body::before{
   color: rgba(20, 12, 8, 0.92);
 }
 
-/* Nav row
-   Key behaviors:
-   - Stays centered when it fits
-   - Becomes horizontally scrollable when it does not
-   - Does not let children shrink or explode
-*/
 .topbar-nav{
   display: flex;
   align-items: center;
-  justify-content: center;
-
-  gap: 14px;
-  flex-wrap: nowrap;
-
-  min-width: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 0 6px;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
-.topbar-nav::-webkit-scrollbar{ display: none; }
-
-/* Store pill */
-.topbar-pill{
+.topbar-link{
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-
-  padding: 9px 12px;
+  padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(70, 42, 22, 0.42);
+
+  border: 1px solid rgba(70, 42, 22, 0.36);
   background: rgba(0,0,0,0.10);
 
   color: rgba(20, 12, 8, 0.92);
+  text-decoration: none;
   font-weight: 900;
   font-size: 13px;
-  text-decoration: none;
-  user-select: none;
   white-space: nowrap;
 
-  flex: 0 0 auto;
+  transition: transform 0.10s ease, filter 0.15s ease, border-color 0.15s ease;
 }
 
-.topbar-pill.is-soon{
-  opacity: 0.62;
-  cursor: not-allowed;
-}
-
-/* Image buttons */
-.nav-img{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  flex: 0 0 auto;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  line-height: 0;
-}
-
-.nav-img img{
-  display: block;
-  width: auto;
-  object-fit: contain;
-
-  /* Hard clamps so these can never "go giant" due to some inherited rule */
-  max-height: calc(var(--topbar-h) - 24px);
-  max-width: 360px;
-
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.38)) contrast(1.08);
-  transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
-}
-
-.nav-img:hover img{
+.topbar-link:hover{
   transform: translateY(-1px);
-  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.48)) contrast(1.10);
+  filter: brightness(1.03);
+  border-color: rgba(235, 200, 130, 0.55);
 }
-
-.nav-img:active img{ transform: translateY(0); }
-
-.nav-img.is-disabled{ pointer-events: none; }
-
-.nav-img.is-disabled img{
-  opacity: 0.72;
-  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.35)) contrast(1.05);
-}
-
-/* Per-button height control (use classes if you have them) */
-.nav-img.is-vote img{ height: var(--nav-vote-h); }
-.nav-img.is-discord img{ height: var(--nav-discord-h); }
-.nav-img.is-ip img{ height: var(--nav-ip-h); }
-
-/* Filename fallback (if you do not have is-vote/is-discord/is-ip classes) */
-.topbar-nav img[src*="vote"]{ height: var(--nav-vote-h); }
-.topbar-nav img[src*="discord"]{ height: var(--nav-discord-h); }
-.topbar-nav img[src*="ip"]{ height: var(--nav-ip-h); }
 
 /* =========================================================
    Main Parchment Card
@@ -290,7 +230,7 @@ body::before{
     linear-gradient(180deg, var(--parch-1), var(--parch-2));
 
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -303,9 +243,9 @@ body::before{
   background:
     radial-gradient(1200px 900px at 50% 40%, transparent 55%, rgba(40, 24, 14, 0.26)),
     radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
-  opacity: 1;
 }
 
+/* Keep content above vignette */
 .card > *{
   position: relative;
   z-index: 1;
@@ -339,7 +279,7 @@ h1{
   max-width: 56ch;
 }
 
-/* Dev badge (bigger, "engulf" feel) */
+/* Dev badge (bigger, sits "into" the card) */
 .phase-badge-img{
   display: grid;
   place-items: center;
@@ -349,7 +289,7 @@ h1{
 .phase-badge-img img{
   height: var(--dev-banner-h);
   width: auto;
-  max-width: min(780px, 92vw);
+  max-width: min(820px, 92vw);
   display: block;
   margin: 0 auto;
 
@@ -413,6 +353,98 @@ h1{
 }
 
 /* =========================================================
+   Action row (big buttons inside the card)
+   ========================================================= */
+.action-row{
+  width: 100%;
+  margin-top: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--action-gap);
+
+  flex-wrap: wrap;
+
+  /* prevents the row from visually touching the card edges */
+  padding: 4px 2px 0 2px;
+}
+
+/* Plaque button wrapper */
+.action-banner{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+  line-height: 0;
+  text-decoration: none;
+
+  flex: 0 0 auto;
+}
+
+.action-banner img{
+  display: block;
+  width: auto;
+  height: var(--action-h);
+  max-height: 70px;
+  max-width: var(--action-max-w);
+  object-fit: contain;
+
+  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.38)) contrast(1.08);
+  transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
+}
+
+.action-banner.is-ip img{
+  height: var(--action-ip-h);
+}
+
+.action-banner:hover img{
+  transform: translateY(-1px);
+  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.48)) contrast(1.10);
+}
+
+.action-banner:active img{
+  transform: translateY(0);
+}
+
+.action-banner.is-disabled{
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.action-banner.is-disabled img{
+  opacity: 0.72;
+  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.35)) contrast(1.05);
+}
+
+/* Store placeholder (text pill that looks like a button) */
+.action-pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: var(--action-h);
+  padding: 0 16px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(70, 42, 22, 0.42);
+  background: rgba(0,0,0,0.10);
+
+  color: rgba(20, 12, 8, 0.92);
+  font-weight: 900;
+  font-size: 13px;
+  white-space: nowrap;
+
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+/* =========================================================
    Sections
    ========================================================= */
 .grid{
@@ -426,7 +458,7 @@ h1{
     radial-gradient(900px 220px at 50% 0%, rgba(255,255,255,0.10), transparent 70%),
     linear-gradient(180deg, rgba(210, 188, 152, 0.85), rgba(186, 160, 122, 0.86));
   border: 1px solid var(--border-soft);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 18px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
 }
@@ -542,11 +574,12 @@ h1{
    ========================================================= */
 @media (max-width: 820px){
   :root{
-    --topbar-h: 86px;
-    --nav-vote-h: 52px;
-    --nav-discord-h: 48px;
-    --nav-ip-h: 50px;
+    --topbar-h: 64px;
     --dev-banner-lift: -8px;
+
+    --action-h: 54px;
+    --action-ip-h: 56px;
+    --action-max-w: 320px;
   }
 
   .topbar-inner{ padding: 10px 12px; }
@@ -564,16 +597,16 @@ h1{
 
 @media (max-width: 520px){
   :root{
-    --topbar-h: 82px;
-    --nav-vote-h: 40px;
-    --nav-discord-h: 38px;
-    --nav-ip-h: 40px;
+    --topbar-h: 62px;
     --dev-banner-lift: -6px;
+
+    --action-h: 44px;
+    --action-ip-h: 46px;
+    --action-gap: 10px;
+    --action-max-w: 260px;
   }
 
-  body{
-    padding-top: calc(var(--topbar-h) + 20px);
-  }
+  body{ padding-top: calc(var(--topbar-h) + 18px); }
 
   .topbar{
     top: 10px;
@@ -589,62 +622,8 @@ h1{
     border-radius: 8px;
   }
 
-  .topbar-nav{
-    justify-content: flex-start;
-    padding: 0 4px;
-  }
-
-  .topbar-pill.is-soon{ display: none; }
-}
-
-/* =========================================================
-   NAV: visually align Discord/IP to Vote (baseline match)
-   Paste at END of file
-   ========================================================= */
-
-/* 1) Make them a bit shorter than Vote */
-:root{
-  --nav-vote-h: 56px;     /* keep */
-  --nav-discord-h: 48px;  /* reduce */
-  --nav-ip-h: 50px;       /* reduce slightly */
-}
-
-/* 2) If you already have per-button classes, this is primary */
-.nav-img.is-vote img{ height: var(--nav-vote-h) !important; }
-.nav-img.is-discord img{ height: var(--nav-discord-h) !important; }
-.nav-img.is-ip img{ height: var(--nav-ip-h) !important; }
-
-/* 3) Filename fallbacks (if classes are not present) */
-.topbar-nav img[src*="vote"]{ height: var(--nav-vote-h) !important; }
-.topbar-nav img[src*="discord"]{ height: var(--nav-discord-h) !important; }
-.topbar-nav img[src*="ip"]{ height: var(--nav-ip-h) !important; }
-
-/* 4) Tiny vertical nudge down for Discord/IP only (optional but helps) */
-.nav-img.is-discord,
-.nav-img.is-ip{
-  position: relative;
-  top: 2px; /* adjust 1-3px if needed */
-}
-
-/* Filename fallback nudge if you do not have classes */
-.topbar-nav a:has(img[src*="discord"]),
-.topbar-nav a:has(img[src*="ip"]),
-.topbar-nav button:has(img[src*="discord"]),
-.topbar-nav button:has(img[src*="ip"]){
-  position: relative;
-  top: 2px;
-}
-
-/* Mobile tuning */
-@media (max-width: 520px){
-  :root{
-    --nav-vote-h: 40px;
-    --nav-discord-h: 34px;
-    --nav-ip-h: 36px;
-  }
-
-  .nav-img.is-discord,
-  .nav-img.is-ip{
-    top: 1px;
+  /* On tiny screens, keep actions readable and avoid cramped rows */
+  .action-row{
+    gap: 10px;
   }
 }
