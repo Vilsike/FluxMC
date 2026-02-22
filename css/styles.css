@@ -601,3 +601,50 @@ h1{
     drop-shadow(0 14px 24px rgba(0,0,0,0.55))
     contrast(1.10);
 }
+/* =========================
+   Nav button sizing (bigger)
+   ========================= */
+
+/* Give the bar a bit more breathing room */
+.topbar-inner{
+  padding: 12px 14px;
+}
+
+/* Make image buttons larger on desktop */
+.nav-img img{
+  height: 44px;   /* was ~34px */
+}
+
+/* Also slightly scale the brand icon for balance */
+.topbar-brand img{
+  width: 34px;
+  height: 34px;
+}
+
+/* Keep spacing comfortable */
+.topbar-nav{
+  gap: 12px;
+}
+
+/* Tablet */
+@media (max-width: 820px){
+  .nav-img img{
+    height: 40px;
+  }
+}
+
+/* Mobile: still readable, not massive */
+@media (max-width: 520px){
+  .topbar-inner{
+    padding: 10px 12px;
+  }
+
+  .nav-img img{
+    height: 34px; /* bigger than before, but fits */
+  }
+
+  .topbar-brand img{
+    width: 28px;
+    height: 28px;
+  }
+}
