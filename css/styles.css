@@ -1,19 +1,9 @@
-/* =========================================================
-   Crownfall styles.css (v5)
-   - Minimal topbar (brand only)
-   - Big action buttons live INSIDE the card header
-   - Safe scaling on Windows and on weird zoom
-   ========================================================= */
-
 :root{
   --bg: #070606;
 
   /* Atmosphere */
   --text: rgba(255,255,255,0.92);
   --muted: rgba(255,255,255,0.72);
-
-  /* Crownfall palette */
-  --gold: rgba(235, 200, 130, 0.92);
 
   /* Parchment */
   --parch-1: rgba(226, 206, 172, 0.92);
@@ -29,21 +19,15 @@
   --shadow: 0 22px 70px rgba(0,0,0,0.72);
 
   /* Layout */
-  --topbar-h: 68px;
+  --topbar-h: 78px;
+
+  /* Action dock sizing */
+  --dock-img-h: 58px;
+  --dock-gap: 12px;
 
   /* Dev banner */
-  --dev-banner-h: clamp(76px, 8vw, 112px);
+  --dev-banner-h: clamp(72px, 8vw, 108px);
   --dev-banner-lift: -10px;
-
-  /* Action row sizing */
-  --action-gap: 12px;
-  --action-h: 58px;         /* target height for plaque buttons */
-  --action-ip-h: 60px;      /* tiny taller for the IP banner */
-  --action-max-w: 350px;    /* prevents huge on ultrawide */
-
-  /* Misc */
-  --radius-lg: 18px;
-  --radius-md: 16px;
 }
 
 *{ box-sizing: border-box; }
@@ -59,7 +43,7 @@ body{
   justify-content: center;
   align-items: flex-start;
 
-  padding: calc(var(--topbar-h) + 22px) 16px 28px 16px;
+  padding: calc(var(--topbar-h) + 26px) 16px 28px 16px;
   position: relative;
 }
 
@@ -69,7 +53,6 @@ body::before{
   position: fixed;
   inset: 0;
   z-index: -2;
-
   background: url("../assets/ironvale_bg.png") center / cover no-repeat;
   filter: saturate(0.95) contrast(1.08);
   opacity: 0.70;
@@ -91,7 +74,6 @@ body::before{
   inset: 0;
   z-index: 1;
   pointer-events: none;
-
   background:
     radial-gradient(1100px 700px at 55% 25%, rgba(255, 180, 90, 0.10), transparent 60%),
     radial-gradient(900px 520px at 25% 82%, rgba(255, 120, 40, 0.06), transparent 62%),
@@ -111,14 +93,14 @@ body::before{
 }
 
 /* =========================================================
-   Topbar (minimal)
+   Topbar (simple, readable, no plaques)
    ========================================================= */
 .topbar{
   position: fixed;
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(1100px, calc(100% - 24px));
+  width: min(1200px, calc(100% - 24px));
   height: var(--topbar-h);
   z-index: 9999;
 
@@ -130,9 +112,9 @@ body::before{
   border-radius: 16px;
 
   box-shadow:
-    0 22px 70px rgba(0,0,0,0.72),
-    inset 0 1px 0 rgba(255,255,255,0.20),
-    inset 0 -1px 0 rgba(0,0,0,0.18);
+    0 18px 55px rgba(0,0,0,0.62),
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -1px 0 rgba(0,0,0,0.16);
 
   overflow: hidden;
 }
@@ -143,7 +125,7 @@ body::before{
   inset: 6px;
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(10,8,7,0.62), rgba(10,8,7,0.30));
-  opacity: 0.18;
+  opacity: 0.16;
   pointer-events: none;
 }
 
@@ -157,7 +139,7 @@ body::before{
   justify-content: space-between;
 
   padding: 10px 14px;
-  gap: 14px;
+  gap: 12px;
 }
 
 .topbar-brand{
@@ -166,12 +148,12 @@ body::before{
   gap: 10px;
   text-decoration: none;
   color: rgba(20, 12, 8, 0.92);
-  min-width: 0;
+  flex: 0 0 auto;
 }
 
 .topbar-brand img{
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   object-fit: contain;
   border-radius: 10px;
   background: rgba(0,0,0,0.06);
@@ -180,306 +162,39 @@ body::before{
 
 .topbar-name{
   font-weight: 900;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.7px;
   font-size: 15px;
   white-space: nowrap;
   color: rgba(20, 12, 8, 0.92);
 }
 
 .topbar-nav{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.topbar-link{
   display: inline-flex;
   align-items: center;
-  padding: 8px 10px;
-  border-radius: 999px;
-
-  border: 1px solid rgba(70, 42, 22, 0.36);
-  background: rgba(0,0,0,0.10);
-
-  color: rgba(20, 12, 8, 0.92);
-  text-decoration: none;
-  font-weight: 900;
-  font-size: 13px;
-  white-space: nowrap;
-
-  transition: transform 0.10s ease, filter 0.15s ease, border-color 0.15s ease;
-}
-
-.topbar-link:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.03);
-  border-color: rgba(235, 200, 130, 0.55);
-}
-
-/* =========================================================
-   Main Parchment Card
-   ========================================================= */
-.card{
-  width: min(980px, 100%);
-  position: relative;
-
-  background:
-    radial-gradient(900px 380px at 50% 0%, rgba(255,255,255,0.14), transparent 62%),
-    radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,0.12), rgba(0,0,0,0.32)),
-    linear-gradient(180deg, var(--parch-1), var(--parch-2));
-
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.card::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(1200px 900px at 50% 40%, transparent 55%, rgba(40, 24, 14, 0.26)),
-    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
-}
-
-/* Keep content above vignette */
-.card > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* =========================================================
-   Header
-   ========================================================= */
-.page-header{
-  padding: 34px 28px 16px 28px;
-  display: grid;
   gap: 14px;
-  justify-items: center;
-  text-align: center;
-}
-
-h1{
-  margin: 0;
-  letter-spacing: 0.9px;
-  font-size: 46px;
-  line-height: 1.05;
-  color: var(--ink);
-  text-shadow: 0 10px 30px rgba(0,0,0,0.18);
-}
-
-.tagline{
-  margin: 0;
-  color: var(--ink2);
-  font-size: 16px;
-  line-height: 1.45;
-  max-width: 56ch;
-}
-
-/* Dev badge (bigger, sits "into" the card) */
-.phase-badge-img{
-  display: grid;
-  place-items: center;
-  margin: 0 auto -6px auto;
-}
-
-.phase-badge-img img{
-  height: var(--dev-banner-h);
-  width: auto;
-  max-width: min(820px, 92vw);
-  display: block;
-  margin: 0 auto;
-
-  transform: translateY(var(--dev-banner-lift));
-
-  filter:
-    drop-shadow(0 18px 34px rgba(0,0,0,0.35))
-    drop-shadow(0 6px 10px rgba(0,0,0,0.25));
-}
-
-/* CTA */
-.cta{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2px;
-  padding: 12px 16px;
-  border-radius: 14px;
-
-  background: rgba(40, 26, 16, 0.62);
-  border: 1px solid rgba(70, 42, 22, 0.42);
-
-  color: rgba(255,255,255,0.94);
-  font-weight: 900;
-  text-decoration: none;
-
-  box-shadow: 0 18px 55px rgba(0,0,0,0.28);
-  transition: transform 0.08s ease, filter 0.2s ease, border-color 0.2s ease;
-}
-
-.cta:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.06);
-  border-color: rgba(235, 200, 130, 0.55);
-}
-
-/* Pills */
-.pillrow{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 6px;
-}
-
-.pill{
-  background: rgba(0,0,0,0.14);
-  border: 1px solid rgba(70, 42, 22, 0.24);
-  padding: 10px 12px;
-  border-radius: 999px;
-  color: rgba(24, 16, 10, 0.82);
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.pill strong{
-  color: rgba(24, 16, 10, 0.92);
-  font-weight: 900;
-}
-
-/* =========================================================
-   Action row (big buttons inside the card)
-   ========================================================= */
-.action-row{
-  width: 100%;
-  margin-top: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--action-gap);
-
-  flex-wrap: wrap;
-
-  /* prevents the row from visually touching the card edges */
-  padding: 4px 2px 0 2px;
-}
-
-/* Plaque button wrapper */
-.action-banner{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  background: transparent;
-  border: 0;
-  padding: 0;
-  margin: 0;
-
-  cursor: pointer;
-  line-height: 0;
-  text-decoration: none;
-
   flex: 0 0 auto;
 }
 
-.action-banner img{
-  display: block;
-  width: auto;
-  height: var(--action-h);
-  max-height: 70px;
-  max-width: var(--action-max-w);
-  object-fit: contain;
-
-  filter: drop-shadow(0 12px 20px rgba(0,0,0,0.38)) contrast(1.08);
-  transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
-}
-
-.action-banner.is-ip img{
-  height: var(--action-ip-h);
-}
-
-.action-banner:hover img{
-  transform: translateY(-1px);
-  filter: drop-shadow(0 16px 26px rgba(0,0,0,0.48)) contrast(1.10);
-}
-
-.action-banner:active img{
-  transform: translateY(0);
-}
-
-.action-banner.is-disabled{
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.action-banner.is-disabled img{
-  opacity: 0.72;
-  filter: grayscale(0.10) drop-shadow(0 10px 18px rgba(0,0,0,0.35)) contrast(1.05);
-}
-
-/* Store placeholder (text pill that looks like a button) */
-.action-pill{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  height: var(--action-h);
-  padding: 0 16px;
-
-  border-radius: 999px;
-  border: 1px solid rgba(70, 42, 22, 0.42);
-  background: rgba(0,0,0,0.10);
-
-  color: rgba(20, 12, 8, 0.92);
+.topbar-link{
+  color: rgba(20, 12, 8, 0.88);
+  text-decoration: none;
   font-weight: 900;
   font-size: 13px;
-  white-space: nowrap;
-
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-}
-
-/* =========================================================
-   Sections
-   ========================================================= */
-.grid{
-  display: grid;
-  gap: 14px;
-  padding: 18px 18px 22px 18px;
-}
-
-.section{
-  background:
-    radial-gradient(900px 220px at 50% 0%, rgba(255,255,255,0.10), transparent 70%),
-    linear-gradient(180deg, rgba(210, 188, 152, 0.85), rgba(186, 160, 122, 0.86));
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  padding: 18px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
-}
-
-.section h2{
-  margin: 0 0 10px 0;
-  font-size: 13.5px;
-  letter-spacing: 1.3px;
-  color: rgba(24, 16, 10, 0.82);
-  font-weight: 900;
+  letter-spacing: 0.6px;
   text-transform: uppercase;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(70, 42, 22, 0.20);
+  background: rgba(0,0,0,0.06);
 }
 
-.section p{
-  margin: 0;
-  color: rgba(24, 16, 10, 0.86);
-  line-height: 1.58;
+.topbar-link:hover{
+  background: rgba(0,0,0,0.10);
+  border-color: rgba(70, 42, 22, 0.32);
 }
 
 /* =========================================================
-   Hero Logo (big crest above parchment)
+   Hero Logo
    ========================================================= */
 .hero-logo{
   width: clamp(210px, 22vw, 310px);
@@ -543,6 +258,250 @@ h1{
 }
 
 /* =========================================================
+   Main Parchment Card + Grain
+   ========================================================= */
+.card{
+  width: min(980px, 100%);
+  position: relative;
+
+  background:
+    radial-gradient(900px 380px at 50% 0%, rgba(255,255,255,0.14), transparent 62%),
+    radial-gradient(1400px 900px at 50% 50%, rgba(0,0,0,0.12), rgba(0,0,0,0.32)),
+    linear-gradient(180deg, var(--parch-1), var(--parch-2));
+
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* inner edge vignette */
+.card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 900px at 50% 40%, transparent 55%, rgba(40, 24, 14, 0.26)),
+    radial-gradient(900px 700px at 50% 110%, rgba(0,0,0,0.10), rgba(0,0,0,0.22));
+  opacity: 1;
+}
+
+/* parchment grain overlay (no image) */
+.card::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.22;
+
+  background:
+    /* tiny speckle */
+    radial-gradient(circle at 10% 15%, rgba(0,0,0,0.10) 0 1px, transparent 2px),
+    radial-gradient(circle at 35% 55%, rgba(0,0,0,0.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 30%, rgba(0,0,0,0.07) 0 1px, transparent 2px),
+    radial-gradient(circle at 85% 72%, rgba(0,0,0,0.08) 0 1px, transparent 2px),
+    /* paper fibers */
+    repeating-linear-gradient(
+      12deg,
+      rgba(0,0,0,0.018),
+      rgba(0,0,0,0.018) 2px,
+      rgba(255,255,255,0.014) 3px,
+      rgba(255,255,255,0.014) 4px
+    ),
+    repeating-linear-gradient(
+      -18deg,
+      rgba(0,0,0,0.012),
+      rgba(0,0,0,0.012) 3px,
+      rgba(255,255,255,0.010) 4px,
+      rgba(255,255,255,0.010) 6px
+    );
+
+  mix-blend-mode: multiply;
+}
+
+.card > *{
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.page-header{
+  padding: 34px 28px 16px 28px;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  text-align: center;
+}
+
+h1{
+  margin: 0;
+  letter-spacing: 0.9px;
+  font-size: 46px;
+  line-height: 1.05;
+  color: var(--ink);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.18);
+}
+
+.tagline{
+  margin: 0;
+  color: var(--ink2);
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: 56ch;
+}
+
+/* Dev badge */
+.phase-badge-img{
+  display: grid;
+  place-items: center;
+  margin: 0 auto -6px auto;
+}
+
+.phase-badge-img img{
+  height: var(--dev-banner-h);
+  width: auto;
+  max-width: min(780px, 92vw);
+  display: block;
+  transform: translateY(var(--dev-banner-lift));
+  filter:
+    drop-shadow(0 18px 34px rgba(0,0,0,0.30))
+    drop-shadow(0 6px 10px rgba(0,0,0,0.20));
+}
+
+/* =========================================================
+   Action Dock (plaques inside the page)
+   ========================================================= */
+.action-dock{
+  width: min(860px, 100%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--dock-gap);
+  margin-top: 2px;
+}
+
+.dock-item{
+  flex: 0 0 auto;
+}
+
+.dock-img{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.dock-img img{
+  height: var(--dock-img-h);
+  width: auto;
+  display: block;
+  max-width: 420px;
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.32)) contrast(1.08);
+  transition: transform 0.10s ease, filter 0.15s ease, opacity 0.15s ease;
+}
+
+.dock-img:hover img{
+  transform: translateY(-1px);
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.38)) contrast(1.10);
+}
+
+.dock-img:active img{
+  transform: translateY(0);
+}
+
+.dock-plaque{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--dock-img-h) - 2px);
+  padding: 0 16px;
+
+  border-radius: 14px;
+  border: 1px solid rgba(70, 42, 22, 0.38);
+  background: rgba(0,0,0,0.10);
+
+  color: rgba(20, 12, 8, 0.92);
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
+.is-disabled{
+  opacity: 0.70;
+  cursor: not-allowed;
+}
+
+.dock-ip{ cursor: pointer; }
+
+/* =========================================================
+   Pills
+   ========================================================= */
+.pillrow{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.pill{
+  background: rgba(0,0,0,0.14);
+  border: 1px solid rgba(70, 42, 22, 0.24);
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: rgba(24, 16, 10, 0.82);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill strong{
+  color: rgba(24, 16, 10, 0.92);
+  font-weight: 900;
+}
+
+/* =========================================================
+   Sections
+   ========================================================= */
+.grid{
+  display: grid;
+  gap: 14px;
+  padding: 18px 18px 22px 18px;
+}
+
+.section{
+  background:
+    radial-gradient(900px 220px at 50% 0%, rgba(255,255,255,0.10), transparent 70%),
+    linear-gradient(180deg, rgba(210, 188, 152, 0.85), rgba(186, 160, 122, 0.86));
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+}
+
+.section h2{
+  margin: 0 0 10px 0;
+  font-size: 13.5px;
+  letter-spacing: 1.3px;
+  color: rgba(24, 16, 10, 0.82);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.section p{
+  margin: 0;
+  color: rgba(24, 16, 10, 0.86);
+  line-height: 1.58;
+}
+
+/* =========================================================
    Toast
    ========================================================= */
 .toast{
@@ -574,21 +533,16 @@ h1{
    ========================================================= */
 @media (max-width: 820px){
   :root{
-    --topbar-h: 64px;
+    --topbar-h: 74px;
+    --dock-img-h: 52px;
     --dev-banner-lift: -8px;
-
-    --action-h: 54px;
-    --action-ip-h: 56px;
-    --action-max-w: 320px;
   }
-
   .topbar-inner{ padding: 10px 12px; }
 }
 
 @media (max-width: 620px){
   h1{ font-size: 36px; line-height: 1.1; }
   .tagline{ font-size: 14px; max-width: 44ch; }
-
   .card{ border-radius: 16px; }
   .page-header{ padding: 26px 18px 14px 18px; }
   .grid{ padding: 14px 14px 18px 14px; }
@@ -597,16 +551,14 @@ h1{
 
 @media (max-width: 520px){
   :root{
-    --topbar-h: 62px;
+    --topbar-h: 70px;
+    --dock-img-h: 44px;
     --dev-banner-lift: -6px;
-
-    --action-h: 44px;
-    --action-ip-h: 46px;
-    --action-gap: 10px;
-    --action-max-w: 260px;
   }
 
-  body{ padding-top: calc(var(--topbar-h) + 18px); }
+  body{
+    padding-top: calc(var(--topbar-h) + 22px);
+  }
 
   .topbar{
     top: 10px;
@@ -616,14 +568,5 @@ h1{
 
   .topbar-name{ display: none; }
 
-  .topbar-brand img{
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-  }
-
-  /* On tiny screens, keep actions readable and avoid cramped rows */
-  .action-row{
-    gap: 10px;
-  }
+  .topbar-nav{ display: none; }
 }
