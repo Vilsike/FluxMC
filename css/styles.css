@@ -1,4 +1,5 @@
 :root{
+  
   --bg: #070606;
 
   /* Atmosphere */
@@ -35,6 +36,24 @@
   /* Parchment texture strength */
   --grain-opacity: 0.11;
   --fiber-opacity: 0.20;
+}
+
+:root{
+  --ui-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.topbar,
+.topbar * ,
+.cta,
+.pill,
+.section h2{
+  font-family: var(--ui-font);
+}
+
+.title,
+.tagline,
+.section p{
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 *{ box-sizing: border-box; }
