@@ -535,3 +535,23 @@ h1{
     margin-bottom: 12px;
   }
 }
+
+/* ===== Force asset sizing (wins against inline attrs) ===== */
+.nav-img img{
+  height: 52px !important;
+  width: auto !important;
+}
+
+.nav-img.is-ip img{
+  height: 60px !important;
+  width: auto !important;
+}
+
+.phase-badge-img img{
+  height: 46px !important;
+  width: auto !important;
+}
+
+.hero-logo{
+  width: clamp(190px, 18vw, 260px) !important;
+}
