@@ -596,3 +596,55 @@ h1{
 
   .topbar-pill.is-soon{ display: none; }
 }
+
+/* =========================================================
+   NAV: visually align Discord/IP to Vote (baseline match)
+   Paste at END of file
+   ========================================================= */
+
+/* 1) Make them a bit shorter than Vote */
+:root{
+  --nav-vote-h: 56px;     /* keep */
+  --nav-discord-h: 48px;  /* reduce */
+  --nav-ip-h: 50px;       /* reduce slightly */
+}
+
+/* 2) If you already have per-button classes, this is primary */
+.nav-img.is-vote img{ height: var(--nav-vote-h) !important; }
+.nav-img.is-discord img{ height: var(--nav-discord-h) !important; }
+.nav-img.is-ip img{ height: var(--nav-ip-h) !important; }
+
+/* 3) Filename fallbacks (if classes are not present) */
+.topbar-nav img[src*="vote"]{ height: var(--nav-vote-h) !important; }
+.topbar-nav img[src*="discord"]{ height: var(--nav-discord-h) !important; }
+.topbar-nav img[src*="ip"]{ height: var(--nav-ip-h) !important; }
+
+/* 4) Tiny vertical nudge down for Discord/IP only (optional but helps) */
+.nav-img.is-discord,
+.nav-img.is-ip{
+  position: relative;
+  top: 2px; /* adjust 1-3px if needed */
+}
+
+/* Filename fallback nudge if you do not have classes */
+.topbar-nav a:has(img[src*="discord"]),
+.topbar-nav a:has(img[src*="ip"]),
+.topbar-nav button:has(img[src*="discord"]),
+.topbar-nav button:has(img[src*="ip"]){
+  position: relative;
+  top: 2px;
+}
+
+/* Mobile tuning */
+@media (max-width: 520px){
+  :root{
+    --nav-vote-h: 40px;
+    --nav-discord-h: 34px;
+    --nav-ip-h: 36px;
+  }
+
+  .nav-img.is-discord,
+  .nav-img.is-ip{
+    top: 1px;
+  }
+}
