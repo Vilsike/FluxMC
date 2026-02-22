@@ -13,7 +13,6 @@
   <canvas id="embers" aria-hidden="true"></canvas>
   <div class="bg-vignette" aria-hidden="true"></div>
 
-  <!-- Minimal topbar (brand only) -->
   <header class="topbar" role="banner">
     <div class="topbar-inner">
       <a class="topbar-brand" href="/" aria-label="Crownfall home">
@@ -21,9 +20,10 @@
         <span class="topbar-name">Crownfall</span>
       </a>
 
-      <!-- Optional small text link (kept minimal on purpose) -->
       <nav class="topbar-nav" aria-label="Primary">
-        <a class="topbar-link" href="/discord" target="_blank" rel="noreferrer">Discord</a>
+        <a class="topbar-link" href="#about">About</a>
+        <a class="topbar-link" href="#pillars">Pillars</a>
+        <a class="topbar-link" href="#ironvale">Ironvale</a>
       </nav>
     </div>
   </header>
@@ -46,40 +46,37 @@
           A political medieval SMP where player-run Houses rise through Influence, diplomacy, trade, culture, and declared war.
         </p>
 
-        <a class="cta" href="/discord" target="_blank" rel="noreferrer">
-          Join the Discord
-        </a>
+        <div class="action-dock" role="navigation" aria-label="Actions">
+          <!-- Discord -->
+          <a class="dock-item dock-img" href="/discord" target="_blank" rel="noreferrer">
+            <img src="assets/btn_discord.png" alt="Join Discord" />
+          </a>
+
+          <!-- Copy IP -->
+          <button class="dock-item dock-img dock-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
+            <img src="assets/banner_ip.png" alt="IP: play.crownfall.gg (click to copy)" />
+          </button>
+
+          <!-- Vote coming soon -->
+          <span class="dock-item dock-img is-disabled" aria-disabled="true">
+            <img src="assets/btn_vote_coming_soon.png" alt="Vote (Coming Soon)" />
+          </span>
+
+          <!-- Store coming soon (text plaque for now) -->
+          <span class="dock-item dock-plaque is-disabled" aria-disabled="true">
+            Store (Coming Soon)
+          </span>
+        </div>
 
         <div class="pillrow">
           <div class="pill">Version: <strong>1.21.11</strong></div>
           <div class="pill">Java + Bedrock</div>
           <div class="pill">Capital: <strong>Ironvale</strong></div>
         </div>
-
-        <!-- Big buttons moved off the navbar -->
-        <div class="action-row" aria-label="Quick actions">
-          <button class="action-banner is-disabled" type="button" aria-disabled="true" tabindex="-1">
-            <img src="assets/btn_vote_coming_soon.png" alt="Vote (Coming Soon)" />
-          </button>
-
-          <!-- Store (Coming Soon) as a button placeholder.
-               Replace src later when you have an image. -->
-          <button class="action-banner is-disabled" type="button" aria-disabled="true" tabindex="-1">
-            <span class="action-pill" aria-label="Store (Coming Soon)">Store (Coming Soon)</span>
-          </button>
-
-          <a class="action-banner" href="/discord" target="_blank" rel="noreferrer">
-            <img src="assets/btn_discord.png" alt="Discord" />
-          </a>
-
-          <button class="action-banner is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
-            <img src="assets/banner_ip.png" alt="IP: play.crownfall.gg (click to copy)" />
-          </button>
-        </div>
       </header>
 
       <div class="grid">
-        <section class="section">
+        <section class="section" id="about">
           <h2>What is Crownfall</h2>
           <p>
             Crownfall is a realm-scale survival experience built around politics and player agency. You form a House, claim territory,
@@ -87,7 +84,7 @@
           </p>
         </section>
 
-        <section class="section">
+        <section class="section" id="pillars">
           <h2>Core Pillars</h2>
           <p>
             <strong>Houses, not factions.</strong> Your identity is your House, your banner, your allies, and your reputation.
@@ -100,7 +97,7 @@
           </p>
         </section>
 
-        <section class="section">
+        <section class="section" id="ironvale">
           <h2>Ironvale</h2>
           <p>
             Ironvale is the capital city and political hub. It is where Houses meet, treaties are signed, markets flourish,
