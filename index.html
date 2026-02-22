@@ -21,17 +21,24 @@
       </a>
 
       <nav class="topbar-nav" aria-label="Primary">
-        <span class="topbar-pill is-soon" aria-disabled="true">Vote (Coming Soon)</span>
-        <span class="topbar-pill is-soon" aria-disabled="true">Store (Coming Soon)</span>
-
-        <a class="topbar-pill is-link" href="/discord" target="_blank" rel="noreferrer">
-          Discord
+        <!-- Vote (Coming Soon) -->
+        <a class="nav-img is-disabled" href="#" aria-disabled="true" tabindex="-1">
+          <img src="assets/ui/btn-vote-coming-soon.png" alt="Vote (Coming Soon)" />
         </a>
 
-        <button class="topbar-pill is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
-          <span class="ip-label">IP:</span>
-          <code id="ipText">play.crownfall.gg</code>
-          <span class="ip-hint">(click to copy)</span>
+        <!-- Store (Coming Soon) -->
+        <a class="nav-img is-disabled" href="#" aria-disabled="true" tabindex="-1">
+          <img src="assets/ui/btn-store-coming-soon.png" alt="Store (Coming Soon)" />
+        </a>
+
+        <!-- Discord -->
+        <a class="nav-img" href="/discord" target="_blank" rel="noreferrer">
+          <img src="assets/ui/btn-discord.png" alt="Discord" />
+        </a>
+
+        <!-- IP (click to copy) -->
+        <button class="nav-img is-ip" type="button" id="copyIpBtn" aria-label="Copy server IP">
+          <img src="assets/ui/banner-ip.png" alt="IP: play.crownfall.gg (click to copy)" />
         </button>
       </nav>
     </div>
@@ -45,9 +52,10 @@
 
     <div class="card">
       <header class="page-header">
-        <span class="phase-badge" aria-label="Development phase">
-          IN DEVELOPMENT
-        </span>
+        <!-- Medieval badge image -->
+        <div class="phase-badge-img" aria-label="Development phase">
+          <img src="assets/ui/badge-development.png" alt="In Development" />
+        </div>
 
         <h1>Crownfall</h1>
 
@@ -136,20 +144,12 @@
         return Promise.resolve();
       }
 
-      const ipText = document.getElementById("ipText");
       const btn = document.getElementById("copyIpBtn");
-
       if (btn) {
         btn.addEventListener("click", async () => {
           try {
             await copy(ip);
             showToast("Copied: " + ip);
-
-            if (ipText) {
-              const prev = ipText.textContent;
-              ipText.textContent = "Copied!";
-              setTimeout(() => (ipText.textContent = prev), 1200);
-            }
           } catch (e) {
             showToast("Copy failed");
           }
