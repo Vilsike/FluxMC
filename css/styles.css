@@ -434,7 +434,7 @@ filter:
     radial-gradient(280px 160px at 6% 95%, rgba(35,20,12,0.20), transparent 72%),
     radial-gradient(280px 160px at 96% 96%, rgba(35,20,12,0.22), transparent 72%),
     radial-gradient(1400px 900px at 50% 50%, transparent 62%, rgba(0,0,0,0.10));
-  opacity: 0.85;
+  opacity: 0.28;
   mix-blend-mode: multiply;
 }
 
