@@ -565,3 +565,61 @@ h1{
 .section{
   background: linear-gradient(180deg, rgba(0,0,0,0.30), rgba(0,0,0,0.20)) !important;
 }
+
+/* =========================
+   Crownfall polish pass
+   Paste at end of file
+   ========================= */
+
+/* 1) Topbar: slightly smaller + tighter so it does not steal the scene */
+.topbar-inner{
+  padding: 12px 14px !important;
+}
+
+.nav-img img{
+  height: 46px !important;
+}
+
+.nav-img.is-ip img{
+  height: 52px !important;
+}
+
+/* 2) Hero crest: make it the focal point */
+.hero-logo{
+  width: clamp(210px, 20vw, 290px) !important;
+  margin: 4px auto 18px auto !important;
+}
+
+.hero-logo::after{
+  inset: -42px !important;
+  opacity: 0.70 !important;
+}
+
+/* 3) Dev banner: readable and intentional */
+.phase-badge-img img{
+  height: 52px !important;
+  margin-bottom: 6px !important;
+}
+
+/* 4) Card: slightly more solid for readability */
+.card{
+  background: linear-gradient(180deg, rgba(18, 12, 9, 0.86), rgba(10, 7, 6, 0.82)) !important;
+}
+
+.section{
+  background: linear-gradient(180deg, rgba(0,0,0,0.34), rgba(0,0,0,0.22)) !important;
+}
+
+/* 5) Title: a bit more "regal" weight without changing font */
+h1{
+  letter-spacing: 0.9px !important;
+  text-shadow: 0 14px 55px rgba(0,0,0,0.70) !important;
+}
+
+/* 6) Mobile guardrails */
+@media (max-width: 520px){
+  .nav-img img{ height: 36px !important; }
+  .nav-img.is-ip img{ height: 40px !important; }
+  .hero-logo{ width: 170px !important; }
+  .phase-badge-img img{ height: 38px !important; }
+}
