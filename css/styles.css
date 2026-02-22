@@ -38,11 +38,13 @@
   --speck-opacity: 0.05;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.34;          /* stronger so you actually SEE it */
+  --wm-opacity: 0.30;          /* stronger so you actually SEE it */
+  
   --wm-size: min(1280px, 96%); /* keep readable */
   --wm-y: 56%;
   --filigree-opacity: 0.08;
-
+  --wm-header-boost: 1;    /* keep map stronger in header */
+  --wm-body-fade: 0.45;    /* fade map behind text */
   /* Typography */
   --ui-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
@@ -157,15 +159,15 @@ body::before{
 
   background:
     url("../assets/parchment_texture.png") center / cover no-repeat,
-    linear-gradient(180deg, rgba(248, 235, 210, 0.94), rgba(218, 192, 150, 0.90));
-  background-blend-mode: multiply;
+    linear-gradient(180deg, rgba(252, 240, 220, 0.92), rgba(214, 186, 140, 0.92));
+  background-blend-mode: soft-light;
 
-  border: 1px solid rgba(70, 42, 22, 0.55);
+  border: 1px solid rgba(70, 42, 22, 0.62);
   border-radius: 14px;
 
   box-shadow:
-    0 18px 48px rgba(0,0,0,0.58),
-    inset 0 1px 0 rgba(255,255,255,0.20),
+    0 18px 55px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.34),
     inset 0 -1px 0 rgba(0,0,0,0.16);
 
   overflow: hidden;
@@ -234,24 +236,17 @@ body::before{
 .topbar-nav::-webkit-scrollbar{ display: none; }
 
 .topbar-link{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   padding: 8px 10px;
   border-radius: 10px;
-  text-decoration: none;
   font-weight: 900;
   font-size: 13px;
-  color: rgba(20, 12, 8, 0.90);
-
+  color: rgba(20, 12, 8, 0.92);
   background: transparent;
   border: 1px solid transparent;
-  flex: 0 0 auto;
 }
 
 .topbar-link:hover{
-  background: rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.045);
   border-color: rgba(70, 42, 22, 0.18);
 }
 
@@ -366,17 +361,31 @@ body::before{
 
   background-image: url("../assets/map_watermark.png");
   background-repeat: no-repeat;
-  background-size: var(--wm-size) auto;
-  background-position: center var(--wm-y);
+  background-size: min(1200px, 92%) auto;
+  background-position: center 46%;
 
   opacity: var(--wm-opacity);
-
-  /* Two-layer trick: multiply plus sharpen */
   mix-blend-mode: multiply;
+
   filter:
     grayscale(1)
     contrast(1.9)
-    brightness(0.72);
+    brightness(0.72)
+    blur(0.35px);
+
+  /* key part: fade watermark behind the reading area */
+  -webkit-mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 34%,
+    rgba(0,0,0,var(--wm-header-boost)) 44%,
+    rgba(0,0,0,var(--wm-body-fade)) 58%,
+    rgba(0,0,0,0.10) 100%);
+  mask-image: linear-gradient(to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 34%,
+    rgba(0,0,0,var(--wm-header-boost)) 44%,
+    rgba(0,0,0,var(--wm-body-fade)) 58%,
+    rgba(0,0,0,0.10) 100%);
 }
 
 /* Second pass to guarantee visibility even on light parchment */
@@ -608,6 +617,26 @@ body::before{
   display: grid;
   gap: 10px;
   padding: 16px 0 0 0;
+
+  position: relative;
+}
+
+.grid::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 6px;
+  bottom: 6px;
+  border-radius: 14px;
+  pointer-events: none;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.14),
+    rgba(255,255,255,0.06)
+  );
+  opacity: 0.65;
 }
 
 .section{
@@ -648,11 +677,12 @@ body::before{
 
 .section p{
   margin: 0;
-  color: rgba(18, 12, 8, 0.92);
+  color: rgba(24, 16, 10, 0.90);
   line-height: 1.58;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.25);
-}
 
+  /* micro legibility boost */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.12);
+}
 /* =========================================================
    Toast
    ========================================================= */
