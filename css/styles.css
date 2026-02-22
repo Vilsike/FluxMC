@@ -611,3 +611,60 @@ h1{
     margin-bottom: 12px;
   }
 }
+
+/* =========================
+   NAVBAR FIX: force image buttons to size up
+   Paste at very end of file
+   ========================= */
+
+/* Make the topbar tall enough to hold bigger art */
+.topbar {
+  height: auto !important;
+}
+
+.topbar-inner {
+  padding: 10px 14px !important;
+}
+
+/* Force the nav container to center and not compress */
+.topbar-nav {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Catch ALL nav images, even if the HTML is not using .nav-img */
+.topbar-nav img {
+  height: 64px !important;
+  width: auto !important;
+  max-width: none !important;
+  display: block !important;
+  object-fit: contain !important;
+
+  /* Helps them pop on parchment */
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.45)) contrast(1.10) !important;
+}
+
+/* IP banner should be largest */
+.topbar-nav img#ipBanner,
+.topbar-nav .is-ip img,
+.topbar-nav img[src*="banner_ip"] {
+  height: 72px !important;
+}
+
+/* Tablet */
+@media (max-width: 820px) {
+  .topbar-nav img { height: 56px !important; }
+  .topbar-nav img#ipBanner,
+  .topbar-nav .is-ip img,
+  .topbar-nav img[src*="banner_ip"] { height: 62px !important; }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .topbar-nav img { height: 40px !important; }
+  .topbar-nav img#ipBanner,
+  .topbar-nav .is-ip img,
+  .topbar-nav img[src*="banner_ip"] { height: 44px !important; }
+}
