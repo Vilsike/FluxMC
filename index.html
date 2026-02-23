@@ -8,7 +8,7 @@
   <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
   <title>Crownfall</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=8" />
+  <link rel="stylesheet" href="css/styles.css?v=9" />
 </head>
 
 <body>
@@ -24,10 +24,11 @@
       </a>
 
       <nav class="topbar-nav" aria-label="Primary">
-        <a class="topbar-link" href="/about">About</a>
-        <a class="topbar-link" href="/pillars">Pillars</a>
-        <a class="topbar-link" href="/core">Core</a>
-        <a class="topbar-link" href="/ironvale">Ironvale</a>
+        <!-- anchors for home sections -->
+        <a class="topbar-link" href="#about">About</a>
+        <a class="topbar-link" href="#pillars">Pillars</a>
+        <a class="topbar-link" href="#core">Core</a>
+        <a class="topbar-link" href="#ironvale">Ironvale</a>
 
         <span class="topbar-sep" aria-hidden="true"></span>
 
@@ -79,14 +80,13 @@
             </div>
 
             <div class="grid">
-<section class="section">
-  <h2>What is Crownfall</h2>
-  <p>
-    A realm-scale SMP built around Houses, Influence, and player governance.
-    War is declared, scheduled, and objective-based.
-  </p>
-  <p class="readmore"><a href="/about">Read more</a></p>
-</section>
+              <section class="section" id="about">
+                <h2>What is Crownfall</h2>
+                <p>
+                  Crownfall is a realm-scale survival experience built around politics and player agency.
+                  You form a House, claim territory, build your seat of power, and compete for Influence through meaningful systems rather than constant raiding.
+                </p>
+              </section>
 
               <section class="section" id="pillars">
                 <h2>Pillars of the Realm</h2>
@@ -102,17 +102,17 @@
               </section>
 
               <section class="section" id="core">
-  <h2>Core Loop</h2>
-  <p>
-    <strong>Form or join a House.</strong> Establish your banner, alliances, and political identity.
-    <br />
-    <strong>Claim and build.</strong> Secure territory and construct a seat of power.
-    <br />
-    <strong>Earn Influence.</strong> Trade, govern, negotiate, and complete realm-wide initiatives.
-    <br />
-    <strong>Declare war.</strong> Engage in scheduled, objective-based conflicts with lasting consequences.
-  </p>
-</section>
+                <h2>Core Loop</h2>
+                <p>
+                  <strong>Form or join a House.</strong> Establish your banner, alliances, and political identity.
+                  <br />
+                  <strong>Claim and build.</strong> Secure territory and construct a seat of power.
+                  <br />
+                  <strong>Earn Influence.</strong> Trade, govern, negotiate, and complete realm-wide initiatives.
+                  <br />
+                  <strong>Declare war.</strong> Engage in scheduled, objective-based conflicts with lasting consequences.
+                </p>
+              </section>
 
               <section class="section" id="ironvale">
                 <h2>Ironvale</h2>
@@ -179,7 +179,10 @@
       if (btn1) btn1.addEventListener("click", handleCopy);
       if (btn2) btn2.addEventListener("click", handleCopy);
 
-      const links = Array.from(document.querySelectorAll(".topbar-nav a.topbar-link"));
+      // Only wire up section highlighting for in-page anchors (href starting with "#")
+      const links = Array.from(document.querySelectorAll(".topbar-nav a.topbar-link"))
+        .filter(a => (a.getAttribute("href") || "").startsWith("#"));
+
       const sections = links
         .map(a => document.querySelector(a.getAttribute("href")))
         .filter(Boolean);
