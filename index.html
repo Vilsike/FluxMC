@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
   <meta name="description" content="Crownfall. A political medieval SMP built around player-run Houses, Influence, diplomacy, and declared wars. IP: play.crownfall.gg. Version: 1.21.11" />
   <title>Crownfall</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=9" />
+  <link rel="stylesheet" href="css/styles.css?v=10" />
 </head>
 
 <body>
@@ -17,20 +16,20 @@
 
   <header class="topbar" role="banner">
     <div class="topbar-inner">
-      <a class="topbar-brand" href="/" aria-label="Crownfall home">
+      <a class="topbar-brand" href="./" aria-label="Crownfall home">
         <img src="assets/logo.png" alt="Crownfall logo" />
         <span class="topbar-name">Crownfall</span>
       </a>
 
       <nav class="topbar-nav" aria-label="Primary">
-        <a class="topbar-link" href="#about">About</a>
-        <a class="topbar-link" href="#pillars">Pillars</a>
+        <a class="topbar-link" href="about/">About</a>
+        <a class="topbar-link" href="pillars/">Pillars</a>
         <a class="topbar-link" href="core/">Core</a>
-        <a class="topbar-link" href="#ironvale">Ironvale</a>
+        <a class="topbar-link" href="ironvale/">Ironvale</a>
 
         <span class="topbar-sep" aria-hidden="true"></span>
 
-        <button class="topbar-btn" type="button" id="copyIpBtn" aria-label="Copy server IP">
+        <button class="topbar-btn" type="button" data-copy-ip>
           Copy IP
         </button>
 
@@ -68,7 +67,7 @@
 
             <div class="actions" aria-label="Primary actions">
               <a class="cta" href="/discord" target="_blank" rel="noreferrer">Join the Discord</a>
-              <button class="cta ghost" type="button" id="copyIpBtn2">Copy IP</button>
+              <button class="cta ghost" type="button" data-copy-ip>Copy IP</button>
             </div>
 
             <div class="pillrow" aria-label="Server details">
@@ -78,11 +77,11 @@
             </div>
 
             <div class="grid">
-              <section class="section" id="about">
+              <section class="section">
                 <h2>What is Crownfall</h2>
                 <p>
-                  Crownfall is a realm-scale survival experience built around politics and player agency. You form a House,
-                  claim territory, build a seat of power, and compete for Influence through meaningful systems rather than constant raiding.
+                  Crownfall is a realm-scale survival experience built around politics and player agency.
+                  You form a House, claim territory, build a seat of power, and compete for Influence through systems rather than constant raiding.
                 </p>
 
                 <div class="card-grid" aria-label="Explore Crownfall">
@@ -112,7 +111,7 @@
                 </div>
               </section>
 
-              <section class="section" id="pillars">
+              <section class="section">
                 <h2>Pillars preview</h2>
                 <p>
                   <strong>Houses, not factions.</strong> Identity is banner, allies, and reputation.
@@ -122,13 +121,12 @@
                   <strong>Diplomacy and economy.</strong> Trade routes, markets, taxes, agreements.
                   <br />
                   <strong>War is opt-in.</strong> Declared, scheduled, objective-based outcomes.
-                  <br />
-                  <br />
+                  <br /><br />
                   Full breakdown lives on the Pillars page.
                 </p>
               </section>
 
-              <section class="section" id="ironvale">
+              <section class="section">
                 <h2>Ironvale preview</h2>
                 <p>
                   Ironvale is the capital and political hub. It is spawn, but it is also the stage.
