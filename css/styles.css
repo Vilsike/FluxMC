@@ -38,13 +38,13 @@
   --speck-opacity: 0.05;
 
   /* Watermark + filigree */
-  --wm-opacity: 0.34;          /* stronger so you actually SEE it */
-  
-  --wm-size: min(1280px, 96%); /* keep readable */
+  --wm-opacity: 0.30;
+  --wm-size: min(1280px, 96%);
   --wm-y: 56%;
   --filigree-opacity: 0.08;
-  --wm-header-boost: 1;    /* keep map stronger in header */
-  --wm-body-fade: 0.35;    /* fade map behind text */
+  --wm-header-boost: 1;
+  --wm-body-fade: 0.35;
+
   /* Typography */
   --ui-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
@@ -130,7 +130,9 @@ body::before{
 .topbar * ,
 .cta,
 .pill,
-.section h2{
+.section h2,
+.card,
+.card *{
   font-family: var(--ui-font);
 }
 
@@ -143,28 +145,6 @@ body::before{
 /* When you jump to sections, offset for the fixed topbar */
 .section{
   scroll-margin-top: calc(var(--topbar-h) + 26px);
-}
-
-.section#core{
-  padding-top: 18px;
-  padding-bottom: 18px;
-}
-
-.readmore{
-  margin-top: 10px;
-  font-family: var(--ui-font);
-  font-weight: 900;
-  font-size: 13px;
-}
-
-.readmore a{
-  color: rgba(24, 16, 10, 0.86);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(70, 42, 22, 0.28);
-}
-
-.readmore a:hover{
-  border-bottom-color: rgba(70, 42, 22, 0.55);
 }
 
 /* =========================================================
@@ -258,9 +238,6 @@ body::before{
 .topbar-nav::-webkit-scrollbar{ display: none; }
 
 .topbar-link{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   padding: 7px 10px;
   border-radius: 10px;
   font-weight: 900;
@@ -268,6 +245,7 @@ body::before{
   color: rgba(20, 12, 8, 0.92);
   background: transparent;
   border: 1px solid transparent;
+  text-decoration: none;
 }
 
 .topbar-link:hover{
@@ -316,12 +294,9 @@ body::before{
 }
 
 .topbar-btn.is-primary{
- background: linear-gradient(
-    180deg,
-    rgba(52, 34, 20, 0.82),
-    rgba(32, 20, 12, 0.82)
-  );
+  background: rgba(40, 26, 16, 0.68);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.92);
 }
 
 /* =========================================================
@@ -381,7 +356,7 @@ body::before{
   mix-blend-mode: multiply;
 }
 
-/* Watermark map (BOLDER and more readable) */
+/* Watermark map */
 .panel-watermark{
   position: absolute;
   inset: 0;
@@ -396,13 +371,12 @@ body::before{
   opacity: var(--wm-opacity);
   mix-blend-mode: multiply;
 
-filter:
-  grayscale(1)
-  contrast(2.05)
-  brightness(0.68)
-  blur(0.35px);
+  filter:
+    grayscale(1)
+    contrast(2.05)
+    brightness(0.68)
+    blur(0.35px);
 
-  /* key part: fade watermark behind the reading area */
   -webkit-mask-image: linear-gradient(to bottom,
     rgba(0,0,0,1) 0%,
     rgba(0,0,0,1) 34%,
@@ -417,7 +391,6 @@ filter:
     rgba(0,0,0,0.10) 100%);
 }
 
-/* Second pass to guarantee visibility even on light parchment */
 .panel-watermark::after{
   content: "";
   position: absolute;
@@ -447,7 +420,7 @@ filter:
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27160%27%20height%3D%27160%27%20viewBox%3D%270%200%20160%20160%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23301f14%27%20stroke-opacity%3D%270.65%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M142%2048%20C132%2028%20112%2018%2086%2018%20C108%2026%20122%2038%20128%2058%27/%3E%3Cpath%20d%3D%27M138%2086%20C134%2072%20124%2062%20110%2060%20C118%2066%20124%2076%20124%2088%27/%3E%3Cpath%20d%3D%27M76%2022%20C90%2026%2098%2036%20100%2050%20C94%2042%2084%2036%2072%2036%27/%3E%3Cpath%20d%3D%27M142%2018%20L104%2018%27/%3E%3Cpath%20d%3D%27M142%2018%20L142%2056%27/%3E%3C/g%3E%3C/svg%3E") calc(100% - 12px) 12px / 120px 120px no-repeat;
 }
 
-/* Tattered edge feel (still rectangular, but reads torn) */
+/* Tattered edge feel */
 .panel-tatter{
   position: absolute;
   inset: -2px;
@@ -460,7 +433,7 @@ filter:
     radial-gradient(280px 160px at 6% 95%, rgba(35,20,12,0.20), transparent 72%),
     radial-gradient(280px 160px at 96% 96%, rgba(35,20,12,0.22), transparent 72%),
     radial-gradient(1400px 900px at 50% 50%, transparent 62%, rgba(0,0,0,0.10));
-  opacity: 0.28;
+  opacity: 0.85;
   mix-blend-mode: multiply;
 }
 
@@ -640,13 +613,12 @@ filter:
 }
 
 /* =========================================================
-   Sections
+   Sections (shared)
    ========================================================= */
 .grid{
   display: grid;
   gap: 10px;
   padding: 16px 0 0 0;
-
   position: relative;
 }
 
@@ -665,7 +637,7 @@ filter:
     rgba(255,255,255,0.08),
     rgba(255,255,255,0.03)
   );
-  opacity: 0.28;
+  opacity: 0.45;
 }
 
 .section{
@@ -676,6 +648,8 @@ filter:
   border-radius: 0;
   padding: 14px 6px;
   box-shadow: none;
+  position: relative;
+  z-index: 1;
 }
 
 .section:first-child{
@@ -706,12 +680,72 @@ filter:
 
 .section p{
   margin: 0;
-  color: rgba(18, 12, 8, 0.92);
+  color: rgba(24, 16, 10, 0.90);
   line-height: 1.58;
-
-  /* micro legibility boost */
   text-shadow: 0 1px 0 rgba(255,255,255,0.10);
 }
+
+/* =========================================================
+   Homepage cards (new)
+   ========================================================= */
+.card-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 860px){
+  .card-grid{ grid-template-columns: 1fr; }
+}
+
+.card{
+  display: block;
+  text-decoration: none;
+  border-radius: 14px;
+  padding: 14px 14px;
+
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(70, 42, 22, 0.18);
+
+  box-shadow: 0 16px 44px rgba(0,0,0,0.10);
+  transition: transform 0.08s ease, filter 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover{
+  transform: translateY(-1px);
+  border-color: rgba(235, 200, 130, 0.45);
+  filter: brightness(1.02);
+}
+
+.card-title{
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgba(24, 16, 10, 0.90);
+}
+
+.card-desc{
+  margin: 0;
+  color: rgba(24, 16, 10, 0.86);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card-meta{
+  margin-top: 10px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: rgba(24, 16, 10, 0.70);
+  font-weight: 900;
+  font-size: 12px;
+}
+
 /* =========================================================
    Toast
    ========================================================= */
@@ -767,16 +801,6 @@ filter:
 
   .panel-content{ padding: 16px 14px 18px 14px; }
   .section{ padding: 12px 4px; }
-}
-
-@keyframes slowDrift{
-  0% { background-position: center 46%; }
-  50% { background-position: center 48%; }
-  100% { background-position: center 46%; }
-}
-
-.panel-watermark{
-  animation: slowDrift 90s ease-in-out infinite;
 }
 
 @media (max-width: 520px){
