@@ -150,6 +150,23 @@ body::before{
   padding-bottom: 18px;
 }
 
+.readmore{
+  margin-top: 10px;
+  font-family: var(--ui-font);
+  font-weight: 900;
+  font-size: 13px;
+}
+
+.readmore a{
+  color: rgba(24, 16, 10, 0.86);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(70, 42, 22, 0.28);
+}
+
+.readmore a:hover{
+  border-bottom-color: rgba(70, 42, 22, 0.55);
+}
+
 /* =========================================================
    Topbar
    ========================================================= */
